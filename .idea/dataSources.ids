@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><component name="dataSourceStorage">
+  <data-source source="LOCAL" name="tasak" product="MySQL" version="5.5.28" jdbc-version="3.0" driver-name="MySQL-AB JDBC Driver" driver-version="mysql-connector-java-5.0.8 ( Revision: ${svn.Revision} )" uuid="10d45867-49c0-4fb3-91eb-5e7d108697d9">
+    <extra-name-characters>#@</extra-name-characters>
+    <identifier-quote-string>`</identifier-quote-string>
+    <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+    <jdbc-url>jdbc:mysql://127.0.0.1/</jdbc-url>
+    <user-name>root</user-name>
+    <schema-pattern>tasak.*</schema-pattern>
+    <default-schemas>tasak.*</default-schemas>
+    <default-dialect>MySQL</default-dialect>
+    <libraries>
+      <library>
+        <url>jar://$PROJECT_DIR$/jars/mysql-connector-java-5.0.8-bin.jar!/</url>
+      </library>
+    </libraries>
+    <schema name="" catalog="tasak" />
+    <table name="car" schema="" catalog="tasak" type="TABLE">
+      <column name="idc" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
+      <column name="make" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
+      <column name="model" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
+      <column name="regnum" sqlType="VARCHAR" length="8" precision="0" nullable="false" jdbcType="12" />
+      <column name="price" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="color" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="idc" />
+    </table>
+    <table name="task" schema="" catalog="tasak" type="TABLE">
+      <column name="idt" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" def="MA==" />
+      <column name="name" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
+      <column name="priority" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
+      <column name="timeToDo" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
+      <column name="description" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
+      <column name="user_idu" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="idt" />
+    </table>
+    <table name="users" schema="" catalog="tasak" type="TABLE">
+      <column name="idu" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" def="MA==" />
+      <column name="firstName" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
+      <column name="lastName" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
+      <column name="uname" sqlType="VARCHAR" length="8" precision="0" nullable="false" jdbcType="12" />
+      <column name="password" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="isAdmin" sqlType="BIT" length="0" precision="0" nullable="false" jdbcType="-7" />
+      <primary-key name="PRIMARY" columns="idu" />
+      <exported-key name="task_ibfk_1" table="task" schema="" catalog="tasak" columns="user_idu" />
+    </table>
+  </data-source>
+</component>

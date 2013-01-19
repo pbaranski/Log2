@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+           version="2.5">
+
+    <servlet>
+        <display-name>com.login.LoginServlet</display-name>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.login.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <display-name>Og</display-name>
+        <servlet-name>Og</servlet-name>
+        <servlet-class>com.tasks.MyControllerTask</servlet-class>
+    </servlet>
+    <servlet>
+        <description>logout</description>
+        <display-name>Logout</display-name>
+        <servlet-name>Out</servlet-name>
+        <servlet-class>com.login.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/com.login.LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Og</servlet-name>
+        <url-pattern>*.og</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Out</servlet-name>
+        <url-pattern>*.out</url-pattern>
+    </servlet-mapping>
+
+</web-app>
