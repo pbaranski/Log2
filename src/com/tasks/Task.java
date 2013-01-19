@@ -6,7 +6,9 @@ public class Task {
 	String priority;
 	String description;
 	Double timeToDo;
-	public int getIdt() {
+    private int userId;
+
+    public int getIdt() {
 		return idt;
 	}
 	public void setIdt(int idt) {
@@ -41,5 +43,12 @@ public class Task {
 	public String getDescription() {
 		return description;
 	}
-	
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
 }

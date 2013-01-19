@@ -7,7 +7,7 @@
 
 <table>
     <tr>
-      <th>Name</th><th>Priority</th><th>Time to spend</th><th>Description</th>
+      <th>Name</th><th>Priority</th><th>Time to spend</th><th>Description</th><th>User id</th>
     </tr>
     <c:forEach items='${taskList}' var='task'>
       <tr>
@@ -15,6 +15,7 @@
       <td>${task.priority}</td>
       <td>${task.timeToDo}</td>
       <td>${task.description}</td>
+      <td>${task.userId}</td>
       <td><input type="submit" value="edit" ONCLICK="window.location.href='taskEdit.og?idt=${task.idt}'"/></td>
       <td><input type="submit" value="delete" ONCLICK="window.location.href='taskDel.og?idt=${task.idt}'"/></td>
       </tr>

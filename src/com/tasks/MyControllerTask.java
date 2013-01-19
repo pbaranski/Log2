@@ -63,9 +63,9 @@ public class MyControllerTask extends HttpServlet {
 
 
 
-		// obsługa akcji carDel - usunięcie samochodu
+		// obsługa akcji carDel - usunięcie taska
 		if (actionName.equals("taskDel")) {
-			// pobranie identyfikatora samochodu
+			// pobranie identyfikatora taskat
 			int id = Integer.parseInt(request.getParameter("idt"));
 			// usuniecie z bazy
 			taskDAO.deleteTask(id);
@@ -73,7 +73,7 @@ public class MyControllerTask extends HttpServlet {
 			refresh_view = true;
 		}
 
-		// obsługa akcji carInsert - wstawianie samochodu
+		// obsługa akcji taskInsert - wstawianie taska
 		if (actionName.equals("taskInsert")) {
 
 			// ustawienie przekierowania na stronę jsp
@@ -81,16 +81,18 @@ public class MyControllerTask extends HttpServlet {
 			destinationPage = "/taskInsert.jsp";
 		}
 
-		// obsługa akcji carInsert - zapis danych nowego samochodu
+		// obsługa akcji taskInsert - zapis danych nowego taska
 		if (actionName.equals("taskInsertSave")) {
 
 			Task task = new Task();
 			try {
-				// pobranie danych samochodu
+				// pobranie danych taska
 				task.setName(request.getParameter("name"));
 				task.setPriority(request.getParameter("priority"));
 
 				task.setTimeToDo(Double.parseDouble(request.getParameter("timeToDo")));
+				task.setDescription(request.getParameter("description"));
+				task.setUserId(Integer.parseInt(request.getParameter("userId")));
 
 				// wstawienie do bazy
 
@@ -103,6 +105,8 @@ public class MyControllerTask extends HttpServlet {
 				task.setPriority(request.getParameter("priority"));
 
 				task.setTimeToDo(200.0);
+                task.setDescription(request.getParameter("description"));
+                task.setUserId(Integer.parseInt(request.getParameter("userId")));
 
 				// wstawienie do bazy
 
@@ -112,41 +116,44 @@ public class MyControllerTask extends HttpServlet {
 			}
 		}
 
-		// obsługa akcji TaskEdit - edycja samochodu
+		// obsługa akcji TaskEdit - edycja taska
 		if (actionName.equals("taskEdit")) {
-			// pobranie identyfikatora samochodu
+			// pobranie identyfikatora taska
 			int id = Integer.parseInt(request.getParameter("idt"));
-			// pobranie samochodu
+			// pobranie taska
 			Task task = taskDAO.getTask(id);
-			// wstawienie samochodu do request
+			// wstawienie taska do request
 			request.setAttribute("task", task);
 			// ustawienie przekierowania na stronę jsp
 			destinationPage = "/taskEdit.jsp";
 		}
 
-		// obsługa akcji TaskInsert - zapis danych nowego samochodu
+		// obsługa akcji TaskInsert - zapis danych nowego taska
 		if (actionName.equals("taskEditSave")) {
 			Task task = new Task();
-			// pobranie danych samochodu
+			// pobranie danych taska
 			task.setIdt(Integer.parseInt(request.getParameter("idt")));
 			task.setName(request.getParameter("name"));
 			task.setPriority(request.getParameter("priority"));
 
 
 			task.setTimeToDo(Double.parseDouble(request.getParameter("timeToDo")));
+
+            task.setDescription(request.getParameter("description"));
+            task.setUserId(Integer.parseInt(request.getParameter("userId")));
 			// wstawienie do bazy
 			taskDAO.updateTask(task);
 			// i zaznaczenie widoku do odświeżenia
 			refresh_view = true;
 		}
 
-		// obsługa akcji TaskList - przezentacja listy samochodów
+		// obsługa akcji TaskList - przezentacja listy taskow
 		if (actionName.equals("taskList") || refresh_view) {
-			// wydobycie z bazy listy samochodów
+			// wydobycie z bazy listy taskow
 			List<Task> taskList = taskDAO.getTasks();
 			// wstawienie listy do request
 			// rzadanie bedzie przekazane przez jsp - czyli doklejanie
-			// wstawilismy do rzadania liste samochodow
+			// wstawilismy do rzadania liste taskow
 			request.setAttribute("taskList", taskList);
 
 			// ustawienie przekierowania na stronę jsp

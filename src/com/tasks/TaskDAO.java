@@ -12,16 +12,14 @@ import com.login.LoginBean;
 import db.DBConnect;
 
 /**
- * Klasa do obsługi tabeli samochody
- * Parametry połączenia są w sta�ych CONNECTION_STRING, LOGIN i PASSWORD
- * 
- * @author Pawe� Kasprowski
+ * Klasa do obsługi tabeli tasks
+ * Parametry połączenia są w stalych CONNECTION_STRING, LOGIN i PASSWORD
  *
  */
 public class TaskDAO {
 	//sekcja inicjalizacyjna dla pol statyccznych
 	/**
-	 * Zwraca list� wszystkich samochod�w
+	 * Zwraca liste wszystkich takow dla danego usera
 	 * @return
 	 */
 	LoginBean user = new LoginBean();
@@ -29,7 +27,8 @@ public class TaskDAO {
 		List<Task> lista = new ArrayList<Task>();
 		try{
 			Connection con = DBConnect.getConnection();
-		//wywolujemy zapytanie 	
+		//wywolujemy zapytanie
+            // TODO do zapytania trzeba wrzucic filtrowanie po id albo admin
 			ResultSet rs = con.createStatement()
 			.executeQuery("select * from task");
 			// chodzimy po kolekcji - pierwsze next ustawia sie na pierwszym wierszu
@@ -46,7 +45,7 @@ public class TaskDAO {
 					task.setTimeToDo(300.0);
 				}
 				task.setDescription(rs.getString("description"));
-				
+                task.setUserId(rs.getInt("user_idu"));
 				lista.add(task);
 			}
 		}catch(SQLException ec) {ec.printStackTrace();}
@@ -62,6 +61,7 @@ public class TaskDAO {
 		Task task = new Task();
 		try{
 			Connection con = DBConnect.getConnection();
+            //TODO filtrowanie po user || admin
 			ResultSet rs = con.createStatement()
 			.executeQuery("select * from task where idt="+idt);
 			if(rs.next()) {
@@ -71,6 +71,7 @@ public class TaskDAO {
 
 				task.setTimeToDo(rs.getDouble("timeToDo"));
 				task.setDescription(rs.getString("description"));
+                task.setUserId(rs.getInt("user_idu"));
 			}
 		}catch(SQLException ec) {ec.printStackTrace();}
 		return task;
@@ -84,16 +85,20 @@ public class TaskDAO {
 		try{
 			Connection con = DBConnect.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(
-					"insert into task(name,priority,timeToTake) values(?,?,?,?)");
+					"insert into task(name,priority,timeToDo,description,user_idu) values(?,?,?,?,?)");
 			pstmt.setString(1, task.getName());
 			pstmt.setString(2, task.getPriority());
 
 			try{
-			pstmt.setDouble(4, task.getTimeToDo());
+			pstmt.setDouble(3, task.getTimeToDo());
 			
 			}catch(NumberFormatException e){
-				pstmt.setDouble(4, 22.0);
+				pstmt.setDouble(3, 22.0);
 			}
+            pstmt.setString(4, task.getDescription());
+         //TODO czy to nie z usera czyli z mojego bina caly czas powinienem brac id???
+
+            pstmt.setInt(5, task.getUserId());
 			pstmt.executeUpdate();
 		}
 		catch(SQLException ec) {ec.printStackTrace();}  
@@ -107,10 +112,12 @@ public class TaskDAO {
 		try{
 			Connection con = DBConnect.getConnection();
 			con.createStatement().executeUpdate(
-					"update task " +
+					"update tasak.task " +
 					" set name='"+task.getName()+"',"+
 					" priority='"+task.getPriority()+"',"+
-					" dateTimeToDo='"+task.getTimeToDo()+"'"+
+					" timeToDo='"+task.getTimeToDo()+"',"+
+					" description='"+task.getDescription()+"',"+
+					" user_idu='"+task.getUserId()+"'"+
 					" where idt="+task.getIdt());
 
 

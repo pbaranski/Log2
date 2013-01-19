@@ -9,8 +9,10 @@
 <input type="hidden" name="idt" value="${task.idt}">
 name: <input type="text" name="name" value="${task.name}"><br/>
 priority: <input type="text" name="priority" value="${task.priority}"><br/>
-
 timeToDo: <input type="text" name="timeToDo" value="${task.timeToDo}"><br/>
+description: <input type="text" name="description" value="${task.description}"><br/>
+userId: <input type="text" name="userId" value="${task.userId}"><br/>
+
 <input type="submit"/>
 </form>
 <div>

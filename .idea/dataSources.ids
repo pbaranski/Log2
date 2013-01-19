@@ -10,7 +10,7 @@
     <default-dialect>MySQL</default-dialect>
     <libraries>
       <library>
-        <url>jar://$PROJECT_DIR$/jars/mysql-connector-java-5.0.8-bin.jar!/</url>
+        <url>file://$PROJECT_DIR$/lib/mysql-connector-java-5.0.8-bin.jar</url>
       </library>
     </libraries>
     <schema name="" catalog="tasak" />
@@ -24,13 +24,14 @@
       <primary-key name="PRIMARY" columns="idc" />
     </table>
     <table name="task" schema="" catalog="tasak" type="TABLE">
-      <column name="idt" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" def="MA==" />
+      <column name="idt" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
       <column name="name" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
       <column name="priority" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
       <column name="timeToDo" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
       <column name="description" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
       <column name="user_idu" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
       <primary-key name="PRIMARY" columns="idt" />
+      <foreign-key name="task_ibfk_1" columns="user_idu" ref-table="users" ref-schema="" ref-catalog="tasak" ref-columns="idu" update-rule="3" delete-rule="3" deferrability="2" />
     </table>
     <table name="users" schema="" catalog="tasak" type="TABLE">
       <column name="idu" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" def="MA==" />
