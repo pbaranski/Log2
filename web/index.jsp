@@ -8,6 +8,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
     <title>Login Page</title> </head>
 <body>
+
+<c:if test='${showLogout==null}'>
+
 <form name="actionForm" action="com.login.LoginServlet" method ="GET">
     <table>
         <tr><td>Enter your Username: </td><td><input type="text" name="uname"/></td></tr>
@@ -15,14 +18,37 @@
         <tr><td colspan="2" align="center"><input type="submit" value="submit"> </td></tr>
     </table>
 </form>
-${errorMessage}
 
 
+<div>
+${errorMsg}
+TOBD na czerwono
+</div>
 
+
+</c:if>
+<c:if test='${showLogout!=null}'>
+
+<div>
+  Witaj ${showLogout}
+    Wyloguj się albo pocinaj do listy
+    TOBD przycisk do listy
+    <div>
+        <jsp:include page="logout.jsp" />
+    </div>
+
+</div>
+
+</c:if>
+
+
+<div>
+
+    DEBUG INFO
 
 <jsp:useBean id="person" scope="session" class="com.log2.BeanTest" />
 <jsp:getProperty name="person" property="name" />
-
+</div>
 
 
 <%--

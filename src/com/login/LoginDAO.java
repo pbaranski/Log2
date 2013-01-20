@@ -36,7 +36,9 @@ public class LoginDAO
 
             if (!userExists)
             {
-                System.out.println("Username/Password entered is Incorrect or User does not Exists.");
+
+               String errorLogin  = "Username/Password entered is Incorrect or User does not Exists.";
+                System.out.println(errorLogin);
                 bean.setValid(false);
 
             }

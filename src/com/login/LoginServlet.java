@@ -4,6 +4,7 @@ import com.login.LoginBean;
 import com.login.LoginDAO;
 
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,33 +26,44 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try
-        {
-            System.out.println("In the Login Servlet");
-            LoginBean user = new LoginBean();
-            user.setUserName(request.getParameter("uname"));
-            user.setPassword(request.getParameter("password"));
-            user = LoginDAO.login(user);
-            if(user.isValid())
-            {
-                HttpSession session = request.getSession(true);
-                session.setAttribute("currentSessionUser",user);
-                response.sendRedirect("taskList.og");
-            }else
-                response.sendRedirect("index.jsp");
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("currentSessionUser") == null) {
 
-        } catch (Throwable exc)
-        {
-           System.out.println(exc);
+            try {
+                System.out.println("In the Login Servlet");
+                LoginBean user = new LoginBean();
+                user.setUserName(request.getParameter("uname"));
+                user.setPassword(request.getParameter("password"));
+                user = LoginDAO.login(user);
+                if (user.isValid()) {
+                    session = request.getSession(true);
+                    session.setAttribute("currentSessionUser", user);
+                    response.sendRedirect("taskList.og");
+                } else {
+                    request.setAttribute("errorMsg", "cos ty narobil");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+                    dispatcher.forward(request, response);
+                }
+            } catch (Throwable exc) {
+                System.out.println(exc);
+
+            }
 
         }
+        else {
+            request.setAttribute("showLogout", session.getAttribute("currentSessionUser"));
+            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+            dispatcher.forward(request, response);
+        }
+
 
     }
 
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
+        /**
+         * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+         */
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
     }
