@@ -40,7 +40,7 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
                     session.setAttribute("currentSessionUser", user);
                     response.sendRedirect("taskList.og");
                 } else {
-                    request.setAttribute("errorMsg", "cos ty narobil");
+                    request.setAttribute("errorMsg", "Wrong credentials");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
                     dispatcher.forward(request, response);
                 }
