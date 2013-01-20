@@ -28,5 +28,42 @@
     </c:if>
 </table>
 
+<jsp:useBean id="person" scope="session" class="com.log2.BeanTest" />
+<jsp:useBean id="beanx" scope="session" class="com.log2.BeanTest2" />
+<div>
+    <div>
+        Nazwa bean'u person
+    </div>
+    <div>
+        <jsp:getProperty name="person" property="name" />
+    </div>
+
+
+    <div>
+        Nazwa beanu beanx
+    </div>
+    <div>
+        <jsp:getProperty name="beanx" property="xxx" />
+    </div>
+</div>
+<a href="#" onclick="showHideAttributes('debugSpan')"> Attributes</a>
+<span id='debugSpan' style='display:none'>
+Session Attributes:
+<% java.util.Enumeration salist = session.getAttributeNames();
+    while(salist.hasMoreElements()){
+        String name=(String)salist.nextElement();
+        Object value = session.getAttribute(name);%>
+    <div>
+        <%=" "+name+"="+value%>
+    </div>
+<% }%>
+Request Attributes:
+<% java.util.Enumeration ralist = request.getAttributeNames();
+    while(ralist.hasMoreElements()){
+        String name=(String)ralist.nextElement();
+        Object value = session.getAttribute(name);%>
+      <%=" "+name+"="+value %>
+<% }%>
+</span>
 </body>
 </html>
