@@ -8,8 +8,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
     <title>Login Page</title> </head>
 <body>
+<c:choose>
 
-<c:if test='${showLogout==null}'>
+<c:when test='${not empty currentSessionUser}'>
+
+    <div>
+        Witaj ${showLogout}
+        Wyloguj się albo pocinaj do listy
+        TOBD przycisk do listy
+        <div>
+            <jsp:include page="logout.jsp" />
+        </div>
+
+    </div>
+
+</c:when>
+
+<c:otherwise>
 
 <form name="actionForm" action="com.login.LoginServlet" method ="GET">
     <table>
@@ -19,28 +34,9 @@
     </table>
 </form>
 
+</c:otherwise>
 
-<div>
-${errorMsg}
-TOBD na czerwono
-</div>
-
-
-</c:if>
-<c:if test='${showLogout!=null}'>
-
-<div>
-  Witaj ${showLogout}
-    Wyloguj się albo pocinaj do listy
-    TOBD przycisk do listy
-    <div>
-        <jsp:include page="logout.jsp" />
-    </div>
-
-</div>
-
-</c:if>
-
+</c:choose>
 
 <div>
 
@@ -55,7 +51,7 @@ TOBD na czerwono
 
 
     <div>
-        Nazwa bean'u person
+        BEAN TEST Nazwa bean'u person
     </div>
     <div>
         <jsp:getProperty name="person" property="name" />
@@ -63,7 +59,7 @@ TOBD na czerwono
 
 
     <div>
-        Nazwa beanu beanx
+        BEN TEST Nazwa beanu beanx
     </div>
     <div>
         <jsp:getProperty name="beanx" property="xxx" />

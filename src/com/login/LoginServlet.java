@@ -26,8 +26,9 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("currentSessionUser") == null) {
+
+
+
 
             try {
                 System.out.println("In the Login Servlet");
@@ -36,25 +37,19 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
                 user.setPassword(request.getParameter("password"));
                 user = LoginDAO.login(user);
                 if (user.isValid()) {
-                    session = request.getSession(true);
+                    HttpSession session = request.getSession(true);
                     session.setAttribute("currentSessionUser", user);
                     response.sendRedirect("taskList.og");
                 } else {
-                    request.setAttribute("errorMsg", "Wrong credentials");
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-                    dispatcher.forward(request, response);
+                    response.sendRedirect("indexer.jsp");
                 }
             } catch (Throwable exc) {
                 System.out.println(exc);
 
             }
 
-        }
-        else {
-            request.setAttribute("showLogout", session.getAttribute("currentSessionUser"));
-            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-            dispatcher.forward(request, response);
-        }
+
+
 
 
     }
