@@ -25,6 +25,19 @@
         <div>
             <jsp:include page="logout.jsp" />
         </div>
+
+        <c:if test='${hasNextPage != null}'>
+            <div>
+            <input type="submit" value="next" ONCLICK="window.location.href='taskList${hasNextPage}.og'"/>
+             </div>
+        </c:if>
+
+        <c:if test='${hasPreviousPage != null}'>
+            <div>
+            <input type="submit" value="back" ONCLICK="window.location.href='taskList${hasPreviousPage}.og'"/>
+             </div>
+        </c:if>
+
     </c:if>
 </table>
 

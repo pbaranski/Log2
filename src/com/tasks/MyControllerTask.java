@@ -148,9 +148,35 @@ public class MyControllerTask extends HttpServlet {
 		}
 
 		// obsługa akcji TaskList - przezentacja listy taskow
-		if (actionName.equals("taskList") || refresh_view) {
+		if (actionName.contains("taskList") || refresh_view) {
 			// wydobycie z bazy listy taskow
-			List<Task> taskList = taskDAO.getTasks();
+            String extractNumber = null;
+            try {
+                extractNumber = actionName.substring(8,actionName.length());
+            } catch (Exception e) {
+               extractNumber = "1";
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+            int paginationNum = 5;
+
+            int page = 1;
+            try {
+                page = Integer.parseInt(extractNumber);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+
+            }
+            //ilosc kolumn
+            int countRows = taskDAO.countRows();
+            System.out.println(page);
+            //pierwszy rekord na stronie
+            int start = page * (paginationNum) - paginationNum;
+            //sprawdzenie czy dać przycisk nextPage
+
+            if(start + paginationNum < countRows)request.setAttribute("hasNextPage", page+1);
+            if(page > 1)request.setAttribute("hasPreviousPage", page-1);
+
+            List<Task> taskList = taskDAO.getTasks(start, paginationNum);
 			// wstawienie listy do request
 			// rzadanie bedzie przekazane przez jsp - czyli doklejanie
 			// wstawilismy do rzadania liste taskow

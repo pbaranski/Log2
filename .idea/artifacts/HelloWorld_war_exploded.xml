@@ -4,8 +4,8 @@
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="lib">
-          <element id="library" level="project" name="jstl-1.2" />
           <element id="library" level="project" name="mysql-connector-java-5.0.8-bin" />
+          <element id="library" level="project" name="jstl-1.2" />
         </element>
         <element id="directory" name="classes">
           <element id="module-output" name="Log2" />

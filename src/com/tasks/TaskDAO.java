@@ -18,21 +18,36 @@ import db.DBConnect;
  */
 public class TaskDAO {
 	//sekcja inicjalizacyjna dla pol statyccznych
-	/**
-	 * Zwraca liste wszystkich takow dla danego usera
-	 * @return
-	 */
-	LoginBean user = new LoginBean();
-    public List<Task> getTasks() {
+
+
+	public int countRows(){
+        Connection con = DBConnect.getConnection();
+        int countRows = 0;
+        try {
+            ResultSet rs = con.createStatement().executeQuery("select count(*) from task");
+            while(rs.next()) {
+            countRows = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("Błąd w obliczeniu count");
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        return countRows;
+    }
+
+    LoginBean user = new LoginBean();
+    public List<Task> getTasks(int startRow, int paginationNum) {
 		List<Task> lista = new ArrayList<Task>();
-		try{
+
+        try{
 			Connection con = DBConnect.getConnection();
 		//wywolujemy zapytanie
             // TODO do zapytania trzeba wrzucic filtrowanie po id albo admin
-			ResultSet rs = con.createStatement()
-			.executeQuery("select * from task");
-			// chodzimy po kolekcji - pierwsze next ustawia sie na pierwszym wierszu
-			while(rs.next()) {
+
+            ResultSet rs = con.createStatement().executeQuery("select * from task limit " + startRow + ", " + paginationNum);
+
+
+            while(rs.next()) {
 				Task task = new Task();
 				//numer kolumny lub nazwe kolumny
 				task.setIdt(rs.getInt("idt"));
