@@ -33,7 +33,7 @@ public class MyControllerTask extends HttpServlet {
 		HttpServletResponse response) throws IOException, ServletException {
 
          HttpSession session = request.getSession(false);
-        if(session == null || session.getAttribute("currentSessionUser")==null)response.sendRedirect("/index.jsp");
+        if(session == null || session.getAttribute("currentSessionUser")==null)response.sendRedirect("/login.jsp");
         else{
 
 
@@ -78,7 +78,7 @@ public class MyControllerTask extends HttpServlet {
 
 			// ustawienie przekierowania na stronę jsp
 
-			destinationPage = "/taskInsert.jsp";
+			destinationPage = "/WEB-INF/taskInsert.jsp";
 		}
 
 		// obsługa akcji taskInsert - zapis danych nowego taska
@@ -125,7 +125,7 @@ public class MyControllerTask extends HttpServlet {
 			// wstawienie taska do request
 			request.setAttribute("task", task);
 			// ustawienie przekierowania na stronę jsp
-			destinationPage = "/taskEdit.jsp";
+			destinationPage = "/WEB-INF/taskEdit.jsp";
 		}
 
 		// obsługa akcji TaskInsert - zapis danych nowego taska
@@ -151,20 +151,13 @@ public class MyControllerTask extends HttpServlet {
 		if (actionName.contains("taskList") || refresh_view) {
 			// wydobycie z bazy listy taskow
             String extractNumber = null;
-            try {
-                extractNumber = actionName.substring(8,actionName.length());
-            } catch (Exception e) {
-               extractNumber = "1";
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-            int paginationNum = 5;
 
+            int paginationNum = 5;
             int page = 1;
             try {
-                page = Integer.parseInt(extractNumber);
+                page = Integer.parseInt(request.getParameter("page"));
             } catch (NumberFormatException e) {
                 e.printStackTrace();
-
             }
             //ilosc kolumn
             int countRows = taskDAO.countRows();
@@ -173,8 +166,11 @@ public class MyControllerTask extends HttpServlet {
             int start = page * (paginationNum) - paginationNum;
             //sprawdzenie czy dać przycisk nextPage
 
-            if(start + paginationNum < countRows)request.setAttribute("hasNextPage", page+1);
-            if(page > 1)request.setAttribute("hasPreviousPage", page-1);
+            if(start + paginationNum < countRows)request.setAttribute("hasNext", "true");
+            else request.setAttribute("hasNext", "false");
+
+            request.setAttribute("page", page);
+            request.setAttribute("numOfPages", countRows/paginationNum+1);
 
             List<Task> taskList = taskDAO.getTasks(start, paginationNum);
 			// wstawienie listy do request
@@ -183,7 +179,7 @@ public class MyControllerTask extends HttpServlet {
 			request.setAttribute("taskList", taskList);
 
 			// ustawienie przekierowania na stronę jsp
-			destinationPage = "/taskList.jsp";
+			destinationPage = "/WEB-INF/taskList.jsp";
 		}
 
 		// przekierowanie do wybranej strony jsp

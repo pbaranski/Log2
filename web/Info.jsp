@@ -6,8 +6,41 @@
 <body>
 
 
-<jsp:useBean id="person" scope="session" class="com.log2.BeanTest" />
-<jsp:getProperty name="person" property="name" />
+<div>
+    <jsp:useBean id="p" scope="request" class="com.login.LoginBean" />
+    <jsp:getProperty name="p" property="lastName" />
+
+</div>
+
+<div>
+
+
+    DEBUG INFO
+
+    <jsp:useBean id="person" scope="session" class="com.log2.BeanTest" />
+    <jsp:setProperty name="person" property="name" value="Bodzio"></jsp:setProperty>
+
+
+    <jsp:useBean id="beanx" scope="session" class="com.log2.BeanTest2" />
+    <jsp:setProperty name="beanx" property="xxx" value="jakies nazwy"></jsp:setProperty>
+
+
+    <div>
+        BEAN TEST Nazwa bean'u person
+    </div>
+    <div>
+        <jsp:getProperty name="person" property="name" />
+    </div>
+
+
+    <div>
+        BEN TEST Nazwa beanu beanx
+    </div>
+    <div>
+        <jsp:getProperty name="beanx" property="xxx" />
+    </div>
+</div>
+
 
 
 

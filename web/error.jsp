@@ -3,9 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl">
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <body>
-
-
-<jsp:forward page="/index.jsp"/>
+This is abandoned place
 <!--
 Error!
 ${errorMessage}

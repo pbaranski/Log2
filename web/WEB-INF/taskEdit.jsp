@@ -16,7 +16,7 @@ userId: <input type="text" name="userId" value="${task.userId}"><br/>
 <input type="submit"/>
 </form>
 <div>
-    <jsp:include page="logout.jsp" />
+    <jsp:include page="../logout.jsp" />
 </div>
 </body>
 </html>

@@ -36,7 +36,7 @@ public class TaskDAO {
     }
 
     LoginBean user = new LoginBean();
-    public List<Task> getTasks(int startRow, int paginationNum) {
+    public List<Task> getTasks(int startRow, int numberOfRecords) {
 		List<Task> lista = new ArrayList<Task>();
 
         try{
@@ -44,7 +44,7 @@ public class TaskDAO {
 		//wywolujemy zapytanie
             // TODO do zapytania trzeba wrzucic filtrowanie po id albo admin
 
-            ResultSet rs = con.createStatement().executeQuery("select * from task limit " + startRow + ", " + paginationNum);
+            ResultSet rs = con.createStatement().executeQuery("select * from task limit " + startRow + ", " + numberOfRecords);
 
 
             while(rs.next()) {
@@ -64,6 +64,7 @@ public class TaskDAO {
 				lista.add(task);
 			}
 		}catch(SQLException ec) {ec.printStackTrace();}
+
 		return lista;
 	}
 

@@ -9,7 +9,7 @@
     <title>Bad Credentials</title> </head>
 <body>
 I don't know such a man....
-<jsp:include page="index.jsp" />
+<jsp:include page="WEB-INF/login.jsp" />
 
 </body>
 </html>
