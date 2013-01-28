@@ -15,7 +15,7 @@
       <td>${task.priority}</td>
       <td>${task.timeToDo}</td>
       <td>${task.description}</td>
-      <td>${task.userId}</td>
+      <td>${task.projectId}</td>
       <td><input type="submit" value="edit" ONCLICK="window.location.href='taskEdit.og?idt=${task.idt}'"/></td>
       <td><input type="submit" value="delete" ONCLICK="window.location.href='taskDel.og?idt=${task.idt}'"/></td>
       </tr>

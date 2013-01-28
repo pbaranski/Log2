@@ -92,7 +92,7 @@ public class MyControllerTask extends HttpServlet {
 
 				task.setTimeToDo(Double.parseDouble(request.getParameter("timeToDo")));
 				task.setDescription(request.getParameter("description"));
-				task.setUserId(Integer.parseInt(request.getParameter("userId")));
+				task.setProjectId(Integer.parseInt(request.getParameter("projectId")));
 
 				// wstawienie do bazy
 
@@ -106,7 +106,7 @@ public class MyControllerTask extends HttpServlet {
 
 				task.setTimeToDo(200.0);
                 task.setDescription(request.getParameter("description"));
-                task.setUserId(Integer.parseInt(request.getParameter("userId")));
+                task.setProjectId(Integer.parseInt(request.getParameter("projectId")));
 
 				// wstawienie do bazy
 
@@ -140,7 +140,7 @@ public class MyControllerTask extends HttpServlet {
 			task.setTimeToDo(Double.parseDouble(request.getParameter("timeToDo")));
 
             task.setDescription(request.getParameter("description"));
-            task.setUserId(Integer.parseInt(request.getParameter("userId")));
+            task.setProjectId(Integer.parseInt(request.getParameter("projectId")));
 			// wstawienie do bazy
 			taskDAO.updateTask(task);
 			// i zaznaczenie widoku do odświeżenia

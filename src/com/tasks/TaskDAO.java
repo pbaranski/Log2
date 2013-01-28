@@ -1,5 +1,6 @@
 package com.tasks;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -60,7 +61,7 @@ public class TaskDAO {
 					task.setTimeToDo(300.0);
 				}
 				task.setDescription(rs.getString("description"));
-                task.setUserId(rs.getInt("user_idu"));
+                task.setProjectId(rs.getInt("project_idp"));
 				lista.add(task);
 			}
 		}catch(SQLException ec) {ec.printStackTrace();}
@@ -87,7 +88,7 @@ public class TaskDAO {
 
 				task.setTimeToDo(rs.getDouble("timeToDo"));
 				task.setDescription(rs.getString("description"));
-                task.setUserId(rs.getInt("user_idu"));
+                task.setProjectId(rs.getInt("project_idp"));
 			}
 		}catch(SQLException ec) {ec.printStackTrace();}
 		return task;
@@ -101,7 +102,7 @@ public class TaskDAO {
 		try{
 			Connection con = DBConnect.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(
-					"insert into task(name,priority,timeToDo,description,user_idu) values(?,?,?,?,?)");
+					"insert into task(name,priority,timeToDo,description,project_idp) values(?,?,?,?,?)");
 			pstmt.setString(1, task.getName());
 			pstmt.setString(2, task.getPriority());
 
@@ -114,7 +115,7 @@ public class TaskDAO {
             pstmt.setString(4, task.getDescription());
          //TODO czy to nie z usera czyli z mojego bina caly czas powinienem brac id???
 
-            pstmt.setInt(5, task.getUserId());
+            pstmt.setInt(5, task.getProjectId());
 			pstmt.executeUpdate();
 		}
 		catch(SQLException ec) {ec.printStackTrace();}  
@@ -128,12 +129,12 @@ public class TaskDAO {
 		try{
 			Connection con = DBConnect.getConnection();
 			con.createStatement().executeUpdate(
-					"update tasak.task " +
+					"update task " +
 					" set name='"+task.getName()+"',"+
 					" priority='"+task.getPriority()+"',"+
 					" timeToDo='"+task.getTimeToDo()+"',"+
 					" description='"+task.getDescription()+"',"+
-					" user_idu='"+task.getUserId()+"'"+
+					" project_idp='"+task.getProjectId()+"'"+
 					" where idt="+task.getIdt());
 
 

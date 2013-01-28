@@ -10,7 +10,7 @@ name: <input type="text" name="name"><br/>
 priority: <input type="text" name="priority"><br/>
 timeToDo: <input type="text" name="timeToDo"><br/>
 description: <input type="text" name="description"><br/>
-user id: <input type="text" name="userId"><br/>
+project id: <input type="text" name="projectId"><br/>
 <input type="submit"/>
 </form>
 <div>
