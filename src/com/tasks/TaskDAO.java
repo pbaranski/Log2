@@ -14,7 +14,7 @@ import db.DBConnect;
 /**
  * Klasa do obsługi tabeli tasks
  * Parametry połączenia są w stalych CONNECTION_STRING, LOGIN i PASSWORD
- *
+ *	Niby kaj? Tu w komencie masz napisane to o czym ja juz 3 raz pisze przeczytaj go sobie ze 2 razy :D
  */
 public class TaskDAO {
 	//sekcja inicjalizacyjna dla pol statyccznych
@@ -34,7 +34,7 @@ public class TaskDAO {
         }
         return countRows;
     }
-
+	// a ten nowy user tu po co?	
     LoginBean user = new LoginBean();
     public List<Task> getTasks(int startRow, int numberOfRecords) {
 		List<Task> lista = new ArrayList<Task>();
@@ -43,7 +43,7 @@ public class TaskDAO {
 			Connection con = DBConnect.getConnection();
 		//wywolujemy zapytanie
             // TODO do zapytania trzeba wrzucic filtrowanie po id albo admin
-
+	// prepare statment to po pierwsze!!!
             ResultSet rs = con.createStatement().executeQuery("select * from task limit " + startRow + ", " + numberOfRecords);
 
 
@@ -77,7 +77,7 @@ public class TaskDAO {
 		Task task = new Task();
 		try{
 			Connection con = DBConnect.getConnection();
-            //TODO filtrowanie po user || admin
+            //TODO filtrowanie po user || admin !!!!Prepare statment!!!!
 			ResultSet rs = con.createStatement()
 			.executeQuery("select * from task where idt="+idt);
 			if(rs.next()) {
@@ -100,6 +100,7 @@ public class TaskDAO {
 	public void insertTask(Task task) {
 		try{
 			Connection con = DBConnect.getConnection();
+			// Wiesz co nie!!
 			PreparedStatement pstmt = con.prepareStatement(
 					"insert into task(name,priority,timeToDo,description,user_idu) values(?,?,?,?,?)");
 			pstmt.setString(1, task.getName());
@@ -113,7 +114,7 @@ public class TaskDAO {
 			}
             pstmt.setString(4, task.getDescription());
          //TODO czy to nie z usera czyli z mojego bina caly czas powinienem brac id???
-
+	// czy to pytanie retoryczne? Po to masz te sesje zeby wiedziec kto pyta 
             pstmt.setInt(5, task.getUserId());
 			pstmt.executeUpdate();
 		}
@@ -127,6 +128,7 @@ public class TaskDAO {
 	public void updateTask(Task task) {
 		try{
 			Connection con = DBConnect.getConnection();
+			// co zapytanie to comment masakra.
 			con.createStatement().executeUpdate(
 					"update tasak.task " +
 					" set name='"+task.getName()+"',"+
