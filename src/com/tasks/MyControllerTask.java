@@ -28,16 +28,18 @@ public class MyControllerTask extends HttpServlet {
 	}
 
 
-
+	// tu skopiowales kudlatego i pieknie masz osobna funlcje tak jak powinno byc
 	private void processRequest(HttpServletRequest request,
 		HttpServletResponse response) throws IOException, ServletException {
 
          HttpSession session = request.getSession(false);
+         // wlasnie tym ma sie zajac CheckLogin :D Trzeba sprawdzic czy sie zajmuje
         if(session == null || session.getAttribute("currentSessionUser")==null)response.sendRedirect("/login.jsp");
         else{
 
-
+	// i znopwu kuzwa sie laczysz z baza po co jak getConnection sam sprawdza
         if(!DBConnect.isConnected()){
+			// wez to wrzuc do static final albo konfiga zmienisz passy i bedziesz szukal wszystkich polaczen jak glupi.
 			DBConnect.setLocation("jdbc:mysql://127.0.0.1/tasak");
 			DBConnect.setLogin("root");
 			DBConnect.setPassword("");
@@ -55,8 +57,12 @@ public class MyControllerTask extends HttpServlet {
 		String uri = request.getRequestURI();
 		String actionName = uri.substring(uri.lastIndexOf("/") + 1,
 				uri.lastIndexOf("."));
-
+	       // tu bym uwarzal z ta nieznana akcja tym powinien sie zajmowac login checker
+	       // to jest zabezpieczenie przed wstrzykiwaniem urli i botami 
+	       // jeszcze nad tym nie myslalem ale to napewno nie ma byc tu
+	       // tu jak sie dostaniesz to masz byc pewny ze jestes w dobrym miejscu z dobra komenda
 		// nieznana akcja - przekieruj na error.jsp
+		
 		String error = "[" + actionName + "] is not a valid action.";
 		request.setAttribute("errorMessage", error);
 		String destinationPage = "/error.jsp";
@@ -188,6 +194,6 @@ public class MyControllerTask extends HttpServlet {
 		dispatcher.forward(request, response);
 
 	    }
-
+	// jeszcze pomysle nad ta klasa.
     }
 }
