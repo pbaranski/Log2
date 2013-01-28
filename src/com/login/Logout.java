@@ -18,7 +18,7 @@ public class Logout extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
-
+    // zabija mnie to twoje oprogramywanie osobno posta osobno geta :D A co jak logout postem przyjdzie?
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.setAttribute("currentSessionUser", null);
