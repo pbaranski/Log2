@@ -20,6 +20,11 @@
         <servlet-class>com.tasks.MyControllerTask</servlet-class>
     </servlet>
     <servlet>
+        <display-name>Pro</display-name>
+        <servlet-name>Pro</servlet-name>
+        <servlet-class>com.projects.MyControllerProject</servlet-class>
+    </servlet>
+    <servlet>
         <description>logout</description>
         <display-name>Logout</display-name>
         <servlet-name>Out</servlet-name>
@@ -38,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>Og</servlet-name>
         <url-pattern>*.og</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Pro</servlet-name>
+        <url-pattern>*.pro</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Out</servlet-name>

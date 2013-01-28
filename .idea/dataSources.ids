@@ -49,7 +49,14 @@
       <column name="password" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
       <column name="isAdmin" sqlType="BIT" length="0" precision="0" nullable="false" jdbcType="-7" />
       <primary-key name="PRIMARY" columns="idu" />
-      <exported-key name="task_ibfk_1" table="task" schema="" catalog="tasak" columns="user_idu" />
+      <exported-key name="fk_users_has_projects_users1" table="users_has_projects" schema="" catalog="tasak" columns="users_idu" />
+    </table>
+    <table name="users_has_projects" schema="" catalog="tasak" type="TABLE">
+      <column name="users_idu" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="projects_idp" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="users_idu,projects_idp" />
+      <foreign-key name="fk_users_has_projects_users1" columns="users_idu" ref-table="users" ref-schema="" ref-catalog="tasak" ref-columns="idu" update-rule="3" delete-rule="3" deferrability="2" />
+      <foreign-key name="fk_users_has_projects_projects1" columns="projects_idp" ref-table="projects" ref-schema="" ref-catalog="tasak" ref-columns="idp" update-rule="3" delete-rule="3" deferrability="2" />
     </table>
   </data-source>
 </component>
