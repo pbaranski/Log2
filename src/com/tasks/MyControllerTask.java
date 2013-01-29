@@ -151,16 +151,24 @@ public class MyControllerTask extends HttpServlet {
 		if (actionName.contains("taskList") || refresh_view) {
 			// wydobycie z bazy listy taskow
             String extractNumber = null;
+           // int idp = (int) session.getAttribute("idp");
 
+            int idp = 1;
             int paginationNum = 5;
             int page = 1;
             try {
                 page = Integer.parseInt(request.getParameter("page"));
+
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
+            try {
+            idp = Integer.parseInt(request.getParameter("idp"));
+        } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
             //ilosc kolumn
-            int countRows = taskDAO.countRows();
+            int countRows = taskDAO.countRows(idp);
             System.out.println(page);
             //pierwszy rekord na stronie
             int start = page * (paginationNum) - paginationNum;
@@ -172,7 +180,7 @@ public class MyControllerTask extends HttpServlet {
             request.setAttribute("page", page);
             request.setAttribute("numOfPages", countRows/paginationNum+1);
 
-            List<Task> taskList = taskDAO.getTasks(start, paginationNum);
+            List<Task> taskList = taskDAO.getTasks(start, paginationNum, idp);
 			// wstawienie listy do request
 			// rzadanie bedzie przekazane przez jsp - czyli doklejanie
 			// wstawilismy do rzadania liste taskow

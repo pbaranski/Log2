@@ -44,9 +44,11 @@ public class LoginDAO
             }
             else if (userExists)
             {
+                int idu =  rs.getInt("idu");
                 String firstName = rs.getString("FirstName");
                 String lastName = rs.getString("LastName");
                 System.out.println("Welcome " + firstName);
+                bean.setIdu(idu);
                 bean.setFirstName(firstName);
                 bean.setLastName(lastName);
                 bean.setValid(true);

@@ -21,11 +21,11 @@ public class TaskDAO {
 	//sekcja inicjalizacyjna dla pol statyccznych
 
 
-	public int countRows(){
+	public int countRows(int idp){
         Connection con = DBConnect.getConnection();
         int countRows = 0;
         try {
-            ResultSet rs = con.createStatement().executeQuery("select count(*) from task");
+            ResultSet rs = con.createStatement().executeQuery("SELECT COUNT(*) FROM task WHERE project_idp =" + idp);
             while(rs.next()) {
             countRows = rs.getInt(1);
             }
@@ -36,8 +36,8 @@ public class TaskDAO {
         return countRows;
     }
 
-    LoginBean user = new LoginBean();
-    public List<Task> getTasks(int startRow, int numberOfRecords) {
+  // LoginBean user = new LoginBean();
+    public List<Task> getTasks(int startRow, int numberOfRecords, int idp) {
 		List<Task> lista = new ArrayList<Task>();
 
         try{
@@ -45,7 +45,7 @@ public class TaskDAO {
 		//wywolujemy zapytanie
             // TODO do zapytania trzeba wrzucic filtrowanie po id albo admin
 
-            ResultSet rs = con.createStatement().executeQuery("select * from task limit " + startRow + ", " + numberOfRecords);
+            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM tasak.task WHERE  tasak.task.project_idp = " + idp +  " limit " + startRow + ", " + numberOfRecords);
 
 
             while(rs.next()) {

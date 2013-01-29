@@ -13,11 +13,12 @@ import java.util.List;
 
 public class ProjectDAO {
 
-	public int countRows(){
+	public int countRows(int userId){
         Connection con = DBConnect.getConnection();
         int countRows = 0;
+       //TODO no zapytanko jeszcze po idu muszą iść
         try {
-            ResultSet rs = con.createStatement().executeQuery("select count(*) from projects");
+            ResultSet rs = con.createStatement().executeQuery("SELECT COUNT(*) FROM users_has_projects WHERE users_idu = " + userId);
             while(rs.next()) {
             countRows = rs.getInt(1);
             }
@@ -30,20 +31,24 @@ public class ProjectDAO {
 
     LoginBean user = new LoginBean();
 
-    public List<Project> getProject(int startRow, int numberOfRecords) {
+    public List<Project> getProject(int startRow, int numberOfRecords, int idUser) {
 		List<Project> list = new ArrayList<Project>();
 
         try{
 			Connection con = DBConnect.getConnection();
             // TODO do zapytania trzeba wrzucic filtrowanie po id albo admin
-
-            ResultSet rs = con.createStatement().executeQuery("select * from project limit " + startRow + ", " + numberOfRecords);
+             PreparedStatement pstmt = con.prepareStatement("SELECT idp, NAME, description FROM projects INNER JOIN users_has_projects  ON  (?) = users_has_projects.users_idu WHERE projects.idp = users_has_projects.projects_idp limit ?, ?");
+            pstmt.setInt(1, idUser);
+            pstmt.setInt(2, startRow);
+            pstmt.setInt(3, numberOfRecords);
+            ResultSet rs = pstmt.executeQuery();
+            // ResultSet rs = con.createStatement().executeQuery("select * from projects limit " + startRow + ", " + numberOfRecords);
 
             while(rs.next()) {
 				Project project = new Project();
-				project.setIdp(rs.getInt("idp"));
+
+                project.setIdp(rs.getInt("idp"));
 				project.setName(rs.getString("name"));
-				project.setUserId(rs.getInt("user_idu"));
 				project.setDescription(rs.getString("description"));
 				list.add(project);
 			}
@@ -58,12 +63,12 @@ public class ProjectDAO {
 			Connection con = DBConnect.getConnection();
             //TODO filtrowanie po user || admin
 			ResultSet rs = con.createStatement()
-			.executeQuery("select * from project where idt="+idp);
+			.executeQuery("select * from project where idp="+idp);
 			if(rs.next()) {
 				project.setIdp(rs.getInt("idp"));
 				project.setName(rs.getString("name"));
 				project.setDescription(rs.getString("description"));
-                project.setUserId(rs.getInt("user_idu"));
+
 			}
 		}catch(SQLException ec) {ec.printStackTrace();}
 		return project;
@@ -73,12 +78,12 @@ public class ProjectDAO {
 		try{
 			Connection con = DBConnect.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(
-					"insert into project(name,description,user_idu) values(?,?,?)");
+					"insert into project(name,description) values(?,?)");
 			pstmt.setString(1, project.getName());
 			pstmt.setString(2, project.getDescription());
-            pstmt.setInt(3, project.getUserId());
          //TODO czy to nie z usera czyli z mojego bina caly czas powinienem brac id???
 			pstmt.executeUpdate();
+
 		}
 		catch(SQLException ec) {ec.printStackTrace();}  
 	}
@@ -87,11 +92,10 @@ public class ProjectDAO {
 		try{
 			Connection con = DBConnect.getConnection();
 			con.createStatement().executeUpdate(
-					"update tasak.project " +
+					"update project " +
 					" set name='"+project.getName()+"',"+
 					" description='"+project.getDescription()+"',"+
-					" user_idu='"+project.getUserId()+"'"+
-					" where idt="+project.getIdp());
+					" where idp="+project.getIdp());
 		}
 		catch(SQLException ec) {ec.printStackTrace();}
 	}

@@ -1,5 +1,6 @@
 package com.projects;
 
+import com.login.LoginBean;
 import db.DBConnect;
 
 import javax.servlet.RequestDispatcher;
@@ -34,7 +35,7 @@ public class MyControllerProject extends HttpServlet {
          HttpSession session = request.getSession(false);
         if(session == null || session.getAttribute("currentSessionUser")==null)response.sendRedirect("/login.jsp");
         else{
-
+            LoginBean user = (LoginBean) session.getAttribute("currentSessionUser");
 
         if(!DBConnect.isConnected()){
 			DBConnect.setLocation("jdbc:mysql://127.0.0.1/tasak");
@@ -81,8 +82,15 @@ public class MyControllerProject extends HttpServlet {
 			}
 		}
 
+        if(actionName.equals("projectTasks")) {
+            int idp = Integer.parseInt(request.getParameter("idp"));
+            request.setAttribute("idp", idp);
+            destinationPage = "/WEB-INF/proToTask.jsp";
+
+        }
+
 		if (actionName.equals("projectEdit")) {
-			int id = Integer.parseInt(request.getParameter("idt"));
+			int id = Integer.parseInt(request.getParameter("idp"));
 			Project project = projectDAO.getProject(id);
 			request.setAttribute("project", project);
 			destinationPage = "/WEB-INF/projectEdit.jsp";
@@ -108,7 +116,7 @@ public class MyControllerProject extends HttpServlet {
                 e.printStackTrace();
             }
 
-            int countRows = projectDAO.countRows();
+            int countRows = projectDAO.countRows(user.getIdu());
             System.out.println(page);
             int start = page * (paginationNum) - paginationNum;
 
@@ -118,7 +126,7 @@ public class MyControllerProject extends HttpServlet {
             request.setAttribute("page", page);
             request.setAttribute("numOfPages", countRows/paginationNum+1);
 
-            List<Project> projectList = projectDAO.getProject(start, paginationNum);
+            List<Project> projectList = projectDAO.getProject(start, paginationNum, user.getIdu());
 			request.setAttribute("projectList", projectList);
 			destinationPage = "/WEB-INF/projectList.jsp";
 		}

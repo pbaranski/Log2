@@ -7,15 +7,18 @@
 
 <table>
     <tr>
-      <th>Name</th><th>Description</th><th>ID</th>
+        <th>ID</th><th>Name</th><th>Description</th>
     </tr>
     <c:forEach items='${projectList}' var='project'>
       <tr>
+
+      <td>${project.idp}</td>
       <td>${project.name}</td>
       <td>${project.description}</td>
-      <td>${project.projectId}</td>
-      <td><input type="submit" value="edit" ONCLICK="window.location.href='projectEdit.pro?idt=${project.idp}'"/></td>
-      <td><input type="submit" value="delete" ONCLICK="window.location.href='projectDel.pro?idt=${project.idp}'"/></td>
+
+      <td><input type="submit" value="Go to project" ONCLICK="window.location.href='taskList.og?idp=${project.idp}'"/></td>
+      <td><input type="submit" value="edit" ONCLICK="window.location.href='projectEdit.pro?idp=${project.idp}'"/></td>
+      <td><input type="submit" value="delete" ONCLICK="window.location.href='projectDel.pro?idp=${project.idp}'"/></td>
       </tr>
     </c:forEach>
 

@@ -10,17 +10,36 @@ USE `mydb` ;
 USE `tasak` ;
 
 -- -----------------------------------------------------
--- Table `tasak`.`car`
+-- Table `tasak`.`projects`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `tasak`.`car` (
-  `idc` INT(11) NOT NULL AUTO_INCREMENT ,
-  `make` VARCHAR(50) NULL DEFAULT NULL ,
-  `model` VARCHAR(50) NULL DEFAULT NULL ,
-  `regnum` VARCHAR(8) NOT NULL ,
-  `price` DOUBLE NULL DEFAULT NULL ,
-  `color` VARCHAR(50) NULL DEFAULT NULL ,
-  PRIMARY KEY (`idc`) )
+CREATE  TABLE IF NOT EXISTS `tasak`.`projects` (
+  `idp` INT(11) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(20) NULL DEFAULT NULL ,
+  `description` VARCHAR(120) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idp`) )
   ENGINE = InnoDB
+  DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `tasak`.`task`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `tasak`.`task` (
+  `idt` INT(11) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(50) NULL DEFAULT 'NoName' ,
+  `priority` VARCHAR(50) NULL DEFAULT 'Low' ,
+  `timeToDo` DOUBLE NULL DEFAULT '10' ,
+  `description` VARCHAR(50) NULL DEFAULT 'TBD' ,
+  `projects_idp` INT(11) NOT NULL ,
+  PRIMARY KEY (`idt`, `projects_idp`) ,
+  INDEX `fk_task_projects1_idx` (`projects_idp` ASC) ,
+  CONSTRAINT `fk_task_projects1`
+  FOREIGN KEY (`projects_idp` )
+  REFERENCES `tasak`.`projects` (`idp` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 42
   DEFAULT CHARACTER SET = latin1;
 
 
@@ -40,22 +59,25 @@ CREATE  TABLE IF NOT EXISTS `tasak`.`users` (
 
 
 -- -----------------------------------------------------
--- Table `tasak`.`task`
+-- Table `tasak`.`users_has_projects`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `tasak`.`task` (
-  `idt` INT(11) NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(50) NULL DEFAULT NULL ,
-  `priority` VARCHAR(50) NULL DEFAULT NULL ,
-  `timeToDo` DOUBLE NULL DEFAULT NULL ,
-  `description` VARCHAR(50) NULL DEFAULT NULL ,
-  `user_idu` INT(11) NOT NULL ,
-  PRIMARY KEY (`idt`) ,
-  INDEX `user_idu` (`user_idu` ASC) ,
-  CONSTRAINT `task_ibfk_1`
-  FOREIGN KEY (`user_idu` )
-  REFERENCES `tasak`.`users` (`idu` ))
+CREATE  TABLE IF NOT EXISTS `tasak`.`users_has_projects` (
+  `users_idu` INT(11) NOT NULL ,
+  `projects_idp` INT(11) NOT NULL ,
+  PRIMARY KEY (`users_idu`, `projects_idp`) ,
+  INDEX `fk_users_has_projects_projects1_idx` (`projects_idp` ASC) ,
+  INDEX `fk_users_has_projects_users1_idx` (`users_idu` ASC) ,
+  CONSTRAINT `fk_users_has_projects_users1`
+  FOREIGN KEY (`users_idu` )
+  REFERENCES `tasak`.`users` (`idu` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_users_has_projects_projects1`
+  FOREIGN KEY (`projects_idp` )
+  REFERENCES `tasak`.`projects` (`idp` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
   ENGINE = InnoDB
-  AUTO_INCREMENT = 5
   DEFAULT CHARACTER SET = latin1;
 
 

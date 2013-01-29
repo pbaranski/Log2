@@ -22,6 +22,7 @@
     </c:forEach>
 
     <c:if test='${taskList != null}'>
+        <input type="submit" value="Go back to projects" ONCLICK="window.location.href='/projectList.pro'"/>
         <input type="submit" value="Add new task" ONCLICK="window.location.href='taskInsert.og?idt=${task.idt}'"/>
         <div>
             <jsp:include page="../logout.jsp" />

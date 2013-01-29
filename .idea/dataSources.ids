@@ -26,7 +26,7 @@
     <table name="projects" schema="" catalog="tasak" type="TABLE">
       <column name="idp" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
       <column name="name" sqlType="VARCHAR" length="20" precision="0" nullable="true" jdbcType="12" />
-      <column name="decription" sqlType="VARCHAR" length="120" precision="0" nullable="true" jdbcType="12" />
+      <column name="description" sqlType="VARCHAR" length="120" precision="0" nullable="true" jdbcType="12" />
       <primary-key name="PRIMARY" columns="idp" />
       <exported-key name="task_ibfk_1" table="task" schema="" catalog="tasak" columns="project_idp" />
       <exported-key name="fk_users_has_projects_projects1" table="users_has_projects" schema="" catalog="tasak" columns="projects_idp" />
