@@ -1,5 +1,8 @@
 package com.tasks;
 
+import com.login.LoginBean;
+import com.projects.Project;
+import com.projects.ProjectDAO;
 import db.DBConnect;
 
 import javax.servlet.RequestDispatcher;
@@ -35,7 +38,7 @@ public class MyControllerTask extends HttpServlet {
          HttpSession session = request.getSession(false);
         if(session == null || session.getAttribute("currentSessionUser")==null)response.sendRedirect("/login.jsp");
         else{
-
+            LoginBean user = (LoginBean) session.getAttribute("currentSessionUser");
 
         if(!DBConnect.isConnected()){
 			DBConnect.setLocation("jdbc:mysql://127.0.0.1/tasak");
@@ -44,7 +47,15 @@ public class MyControllerTask extends HttpServlet {
 			DBConnect.connect();
 		}
 
+          int idp = 1;
+            try {
 
+                idp = Integer.parseInt(request.getParameter("idp"));
+                session.setAttribute("idp", idp);
+            } catch (NumberFormatException e) {
+                System.out.println("idp atribute not atached");
+            }
+            idp = (int) session.getAttribute("idp");
 
 
         // przygotowanie dostępu do danych
@@ -89,10 +100,13 @@ public class MyControllerTask extends HttpServlet {
 				// pobranie danych taska
 				task.setName(request.getParameter("name"));
 				task.setPriority(request.getParameter("priority"));
-
 				task.setTimeToDo(Double.parseDouble(request.getParameter("timeToDo")));
 				task.setDescription(request.getParameter("description"));
+				//TODO dla zwyklego usera - shit jeszcze w jsp trzeba zrobic
+				//task.setProjectId(idp);
+                //task.setUserId(user.getIdu);
 				task.setProjectId(Integer.parseInt(request.getParameter("projectId")));
+				task.setUserId(Integer.parseInt(request.getParameter("userId")));
 
 				// wstawienie do bazy
 
@@ -103,10 +117,10 @@ public class MyControllerTask extends HttpServlet {
 			} catch (NumberFormatException e) {
 				task.setName(request.getParameter("name"));
 				task.setPriority(request.getParameter("priority"));
-
 				task.setTimeToDo(200.0);
                 task.setDescription(request.getParameter("description"));
-                task.setProjectId(Integer.parseInt(request.getParameter("projectId")));
+                task.setProjectId(idp);
+                task.setUserId(user.getIdu());
 
 				// wstawienie do bazy
 
@@ -130,17 +144,19 @@ public class MyControllerTask extends HttpServlet {
 
 		// obsługa akcji TaskInsert - zapis danych nowego taska
 		if (actionName.equals("taskEditSave")) {
-			Task task = new Task();
+
+            Task task = new Task();
 			// pobranie danych taska
 			task.setIdt(Integer.parseInt(request.getParameter("idt")));
 			task.setName(request.getParameter("name"));
 			task.setPriority(request.getParameter("priority"));
-
-
 			task.setTimeToDo(Double.parseDouble(request.getParameter("timeToDo")));
-
             task.setDescription(request.getParameter("description"));
+           //TODO admin moze ale user nie i @#$ bo nie bedzie mi taskow po projektach rozsiewał :)
+            //task.setUserId(user.getIdu);
+
             task.setProjectId(Integer.parseInt(request.getParameter("projectId")));
+            task.setUserId(Integer.parseInt(request.getParameter("userId")));
 			// wstawienie do bazy
 			taskDAO.updateTask(task);
 			// i zaznaczenie widoku do odświeżenia
@@ -153,38 +169,35 @@ public class MyControllerTask extends HttpServlet {
             String extractNumber = null;
            // int idp = (int) session.getAttribute("idp");
 
-            int idp = 1;
+
             int paginationNum = 5;
             int page = 1;
             try {
                 page = Integer.parseInt(request.getParameter("page"));
-
             } catch (NumberFormatException e) {
-                e.printStackTrace();
+                System.out.println("Page atribute not atached");
             }
-            try {
-            idp = Integer.parseInt(request.getParameter("idp"));
-        } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
+
             //ilosc kolumn
-            int countRows = taskDAO.countRows(idp);
-            System.out.println(page);
+            int countRows = taskDAO.countRows(idp, user.getIdu());
             //pierwszy rekord na stronie
-            int start = page * (paginationNum) - paginationNum;
+            int start = page * paginationNum - paginationNum;
             //sprawdzenie czy dać przycisk nextPage
 
             if(start + paginationNum < countRows)request.setAttribute("hasNext", "true");
             else request.setAttribute("hasNext", "false");
 
-            request.setAttribute("page", page);
-            request.setAttribute("numOfPages", countRows/paginationNum+1);
 
-            List<Task> taskList = taskDAO.getTasks(start, paginationNum, idp);
+            request.setAttribute("page", page);
+            request.setAttribute("numOfPages", countRows/(paginationNum+1) + 1);
+
+            List<Task> taskList = taskDAO.getTasks(start, paginationNum, idp, user.getIdu());
 			// wstawienie listy do request
 			// rzadanie bedzie przekazane przez jsp - czyli doklejanie
 			// wstawilismy do rzadania liste taskow
 			request.setAttribute("taskList", taskList);
+
+             request.setAttribute("projectName",new ProjectDAO().getProjectName(idp));
 
 			// ustawienie przekierowania na stronę jsp
 			destinationPage = "/WEB-INF/taskList.jsp";

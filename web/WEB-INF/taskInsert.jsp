@@ -11,6 +11,8 @@ priority: <input type="text" name="priority"><br/>
 timeToDo: <input type="text" name="timeToDo"><br/>
 description: <input type="text" name="description"><br/>
 project id: <input type="text" name="projectId"><br/>
+user id: <input type="text" name="userId"><br/>
+
 <input type="submit"/>
 </form>
 <div>

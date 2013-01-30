@@ -113,7 +113,7 @@ public class MyControllerProject extends HttpServlet {
             try {
                 page = Integer.parseInt(request.getParameter("page"));
             } catch (NumberFormatException e) {
-                e.printStackTrace();
+                System.out.println("Page atribute not atached");
             }
 
             int countRows = projectDAO.countRows(user.getIdu());

@@ -1,12 +1,13 @@
 package com.tasks;
 
 public class Task {
-	int idt;
-	String name;
-	String priority;
-	String description;
-	Double timeToDo;
+    private int idt;
+	private String name;
+    private String priority;
+    private String description;
+    private Double timeToDo;
     private int projectId;
+    private int userId;
 
     public int getIdt() {
 		return idt;
@@ -50,5 +51,13 @@ public class Task {
 
     public int getProjectId() {
         return projectId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int usertId) {
+        this.userId = usertId;
     }
 }

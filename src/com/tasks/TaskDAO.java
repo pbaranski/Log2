@@ -21,11 +21,11 @@ public class TaskDAO {
 	//sekcja inicjalizacyjna dla pol statyccznych
 
 
-	public int countRows(int idp){
+	public int countRows(int idp, int idu){
         Connection con = DBConnect.getConnection();
         int countRows = 0;
         try {
-            ResultSet rs = con.createStatement().executeQuery("SELECT COUNT(*) FROM task WHERE project_idp =" + idp);
+            ResultSet rs = con.createStatement().executeQuery("SELECT COUNT(*) FROM task WHERE project_idp =" + idp + " and task.user_idu = " + idu);
             while(rs.next()) {
             countRows = rs.getInt(1);
             }
@@ -37,7 +37,7 @@ public class TaskDAO {
     }
 
   // LoginBean user = new LoginBean();
-    public List<Task> getTasks(int startRow, int numberOfRecords, int idp) {
+    public List<Task> getTasks(int startRow, int numberOfRecords, int idp, int idu) {
 		List<Task> lista = new ArrayList<Task>();
 
         try{
@@ -45,7 +45,7 @@ public class TaskDAO {
 		//wywolujemy zapytanie
             // TODO do zapytania trzeba wrzucic filtrowanie po id albo admin
 
-            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM tasak.task WHERE  tasak.task.project_idp = " + idp +  " limit " + startRow + ", " + numberOfRecords);
+            ResultSet rs = con.createStatement().executeQuery("SELECT * FROM task WHERE task.project_idp = " + idp +  " and task.user_idu = " + idu + " limit " + startRow + ", " + numberOfRecords);
 
 
             while(rs.next()) {
@@ -62,6 +62,7 @@ public class TaskDAO {
 				}
 				task.setDescription(rs.getString("description"));
                 task.setProjectId(rs.getInt("project_idp"));
+                task.setUserId(rs.getInt("user_idu"));
 				lista.add(task);
 			}
 		}catch(SQLException ec) {ec.printStackTrace();}
@@ -89,10 +90,12 @@ public class TaskDAO {
 				task.setTimeToDo(rs.getDouble("timeToDo"));
 				task.setDescription(rs.getString("description"));
                 task.setProjectId(rs.getInt("project_idp"));
+                task.setUserId(rs.getInt("user_idu"));
 			}
 		}catch(SQLException ec) {ec.printStackTrace();}
 		return task;
 	}
+
 
 	/**
 	 * Wstawia do bazy task o podanym idt
@@ -102,7 +105,7 @@ public class TaskDAO {
 		try{
 			Connection con = DBConnect.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(
-					"insert into task(name,priority,timeToDo,description,project_idp) values(?,?,?,?,?)");
+					"insert into task(name,priority,timeToDo,description,project_idp,user_idu) values(?,?,?,?,?,?)");
 			pstmt.setString(1, task.getName());
 			pstmt.setString(2, task.getPriority());
 
@@ -116,6 +119,7 @@ public class TaskDAO {
          //TODO czy to nie z usera czyli z mojego bina caly czas powinienem brac id???
 
             pstmt.setInt(5, task.getProjectId());
+            pstmt.setInt(6, task.getUserId());
 			pstmt.executeUpdate();
 		}
 		catch(SQLException ec) {ec.printStackTrace();}  
@@ -134,7 +138,8 @@ public class TaskDAO {
 					" priority='"+task.getPriority()+"',"+
 					" timeToDo='"+task.getTimeToDo()+"',"+
 					" description='"+task.getDescription()+"',"+
-					" project_idp='"+task.getProjectId()+"'"+
+					" project_idp='"+task.getProjectId()+"',"+
+					" project_idp='"+task.getUserId()+"'"+
 					" where idt="+task.getIdt());
 
 

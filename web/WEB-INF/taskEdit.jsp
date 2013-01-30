@@ -12,6 +12,7 @@ priority: <input type="text" name="priority" value="${task.priority}"><br/>
 timeToDo: <input type="text" name="timeToDo" value="${task.timeToDo}"><br/>
 description: <input type="text" name="description" value="${task.description}"><br/>
 projectId: <input type="text" name="projectId" value="${task.projectId}"><br/>
+userId: <input type="text" name="userId" value="${task.userId}"><br/>
 
 <input type="submit"/>
 </form>

@@ -74,6 +74,19 @@ public class ProjectDAO {
 		return project;
 	}
 
+    public String getProjectName(int idp) {
+        Project project = new Project();
+        try{
+            Connection con = DBConnect.getConnection();
+            ResultSet rs = con.createStatement()
+                    .executeQuery("select * from projects where idp="+idp);
+            if(rs.next()) {
+                project.setName(rs.getString("name"));
+            }
+        }catch(SQLException ec) {ec.printStackTrace();}
+        return project.getName();
+    }
+
 	public void insertProject(Project project) {
 		try{
 			Connection con = DBConnect.getConnection();
