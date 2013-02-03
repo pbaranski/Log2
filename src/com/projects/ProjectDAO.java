@@ -158,7 +158,7 @@ public class ProjectDAO {
 		try{
 			Connection con = DBConnect.getConnection();
 			con.createStatement().executeUpdate(
-					"DELETE FROM users_has_projects WHERE users_idu=" + idu + " and projects_idp=" + idp);
+					"DELETE FROM users_has_projects WHERE users_idu=" + idu + " AND projects_idp=" + idp);
 		}
 		catch(SQLException ec) {ec.printStackTrace();}
 
@@ -189,6 +189,19 @@ public class ProjectDAO {
         }
 
         return projectUserList;  //To change body of created methods use File | Settings | File Templates.
+    }
+
+    public void addUser(int idu, int idp) {
+        try{
+            Connection con = DBConnect.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(
+                    "INSERT INTO users_has_projects(users_idu, projects_idp) VALUES(?,?)");
+            pstmt.setInt(1, idu);
+            pstmt.setInt(2, idp);
+            pstmt.executeUpdate();
+
+        }
+        catch(SQLException ec) {ec.printStackTrace();}
     }
 }
 

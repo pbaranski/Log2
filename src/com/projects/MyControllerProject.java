@@ -65,14 +65,20 @@ public class MyControllerProject extends HttpServlet {
             int idu = Integer.parseInt(request.getParameter("idu"));
             int idp = Integer.parseInt(request.getParameter("idp"));
             projectDAO.removeUser(idu, idp);
-            refresh_view = true;
+            destinationPage = "/WEB-INF/projectEdit.pro";
+        }
+
+        if (actionName.equals("addUserToProject")){
+            int idu = Integer.parseInt(request.getParameter("idu"));
+            int idp = Integer.parseInt(request.getParameter("idp"));
+            projectDAO.addUser(idu, idp);
+            destinationPage = "/WEB-INF/projectEdit.pro";
         }
 
 		if (actionName.equals("projectInsert")) {
 			destinationPage = "/WEB-INF/projectInsert.jsp";
 		}
 		if (actionName.equals("projectInsertSave")) {
-
 			Project project = new Project();
 				project.setName(request.getParameter("name"));
 				project.setDescription(request.getParameter("description"));
