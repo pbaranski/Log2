@@ -139,7 +139,7 @@ public class TaskDAO {
 					" timeToDo='"+task.getTimeToDo()+"',"+
 					" description='"+task.getDescription()+"',"+
 					" project_idp='"+task.getProjectId()+"',"+
-					" project_idp='"+task.getUserId()+"'"+
+					" user_idu='"+task.getUserId()+"'"+
 					" where idt="+task.getIdt());
 
 

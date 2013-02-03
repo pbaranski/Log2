@@ -60,39 +60,33 @@ public class MyControllerProject extends HttpServlet {
 			projectDAO.deleteProject(id);
 			refresh_view = true;
 		}
+
+        if (actionName.equals("projectRemoveUser")){
+            int idu = Integer.parseInt(request.getParameter("idu"));
+            int idp = Integer.parseInt(request.getParameter("idp"));
+            projectDAO.removeUser(idu, idp);
+            refresh_view = true;
+        }
+
 		if (actionName.equals("projectInsert")) {
 			destinationPage = "/WEB-INF/projectInsert.jsp";
 		}
 		if (actionName.equals("projectInsertSave")) {
 
 			Project project = new Project();
-			try {
 				project.setName(request.getParameter("name"));
 				project.setDescription(request.getParameter("description"));
-				project.setUserId(Integer.parseInt(request.getParameter("userId")));
-				projectDAO.insertProject(project);
+				projectDAO.insertProject(project, Integer.parseInt(request.getParameter("user_idu")));
 				refresh_view = true;
-
-			} catch (NumberFormatException e) {
-                project.setName(request.getParameter("name"));
-                project.setDescription(request.getParameter("description"));
-                project.setUserId(1);
-                projectDAO.insertProject(project);
-                refresh_view = true;
-			}
 		}
 
-        if(actionName.equals("projectTasks")) {
-            int idp = Integer.parseInt(request.getParameter("idp"));
-            request.setAttribute("idp", idp);
-            destinationPage = "/WEB-INF/proToTask.jsp";
-
-        }
 
 		if (actionName.equals("projectEdit")) {
 			int id = Integer.parseInt(request.getParameter("idp"));
 			Project project = projectDAO.getProject(id);
 			request.setAttribute("project", project);
+            List<LoginBean> projectUserList = projectDAO.getProjectUserList(project.getIdp());
+            request.setAttribute("projectUserList", projectUserList);
 			destinationPage = "/WEB-INF/projectEdit.jsp";
 		}
 
@@ -101,8 +95,8 @@ public class MyControllerProject extends HttpServlet {
 			project.setIdp(Integer.parseInt(request.getParameter("idp")));
 			project.setName(request.getParameter("name"));
 			project.setDescription(request.getParameter("description"));
-            project.setUserId(Integer.parseInt(request.getParameter("userId")));
-			projectDAO.updateProject(project);
+
+            projectDAO.updateProject(project);
 			refresh_view = true;
 		}
 
