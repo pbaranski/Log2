@@ -204,6 +204,31 @@ public class ProjectDAO {
 
         return projectUserList;  //To change body of created methods use File | Settings | File Templates.
     }
+    public List<LoginBean> getNotInProjectUserList(int idp) {
+        List<LoginBean> projectUserList = new ArrayList<>();
+
+        try {
+            Connection con = DBConnect.getConnection();
+            PreparedStatement pstmt = con.prepareStatement("SELECT users_idu, firstName, lastName, uname FROM tasak.users INNER JOIN tasak.users_has_projects  ON  tasak.users.idu = tasak.users_has_projects.users_idu WHERE  tasak.users_has_projects.projects_idp != ?");
+            pstmt.setInt(1, idp);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                LoginBean user = new LoginBean();
+                user.setLastName(rs.getString("lastName"));
+                user.setIdu(rs.getInt("users_idu"));
+                user.setUserName(rs.getString("uname"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setIdp(idp);
+                projectUserList.add(user);
+            }
+
+        } catch (SQLException ec) {
+            ec.printStackTrace();
+        }
+
+        return projectUserList;  //To change body of created methods use File | Settings | File Templates.
+    }
 
     public void removeUser(int idu, int idp) {
         try {

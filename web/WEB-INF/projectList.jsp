@@ -6,7 +6,6 @@
 <body>
 <div>
     <h1 style="text-align:center;">Task list</h1>
-
     <h2 style="text-align:center;">Hello ${currentSessionUser.username}</h2>
 
 </div>
@@ -63,7 +62,6 @@
     <c:if test='${page > 1}'>
         <input type="submit" value="back" ONCLICK="window.location.href='projectList.pro?page=${page-1}'"/>
     </c:if>
-
 </div>
 
 </body>
