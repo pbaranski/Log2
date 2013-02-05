@@ -22,7 +22,7 @@ public class CheckServlet extends HttpServlet {
            // System.out.println("In Check Servlet");
            // HttpSession session = request.getSession(true);
             // session.setAttribute("currentSessionUser", user);
-           response.sendRedirect("log");
+           response.sendRedirect("/log");
            // request.setAttribute("err", "");
           //  request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
 

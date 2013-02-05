@@ -16,6 +16,7 @@ public class LoginBean {
     private String password;
     private String firstName;
     private String lastName;
+    private boolean isAdmin;
     public boolean valid;
 
     public int getIdp() {
@@ -66,6 +67,16 @@ public class LoginBean {
     public void setValid(boolean newValid)
     {
         valid = newValid;
+    }
+
+    public boolean isAdmin()
+    {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean newAdmin)
+    {
+        isAdmin = newAdmin;
     }
 
     public int getIdu() {

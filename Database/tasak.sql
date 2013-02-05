@@ -30,7 +30,8 @@ CREATE  TABLE IF NOT EXISTS `tasak`.`task` (
   `priority` VARCHAR(50) NULL DEFAULT 'Low' ,
   `timeToDo` DOUBLE NULL DEFAULT '10' ,
   `description` VARCHAR(50) NULL DEFAULT 'TBD' ,
-  `projects_idp` INT(11) NOT NULL ,
+  `user_idu` INT(11) NULL DEFAULT '1' ,
+  `project_idp` INT(11) NOT NULL ,
   PRIMARY KEY (`idt`, `projects_idp`) ,
   INDEX `fk_task_projects1_idx` (`projects_idp` ASC) ,
   CONSTRAINT `fk_task_projects1`

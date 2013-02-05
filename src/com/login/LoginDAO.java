@@ -19,9 +19,14 @@ public class LoginDAO
         String searchQuery = "select * from users where uname='" + username + "' AND password='" + password + "'";
 
         if(!DBConnect.isConnected()){
+//            DBConnect.setLocation("jdbc:mysql://127.10.200.129/tasak");
+//            DBConnect.setLogin("adminBeLIEKC");
+//            DBConnect.setPassword("2FB-2AjbnSMT");
             DBConnect.setLocation("jdbc:mysql://127.0.0.1/tasak");
             DBConnect.setLogin("root");
             DBConnect.setPassword("");
+
+
             DBConnect.connect();
         }
 
@@ -47,11 +52,13 @@ public class LoginDAO
                 int idu =  rs.getInt("idu");
                 String firstName = rs.getString("FirstName");
                 String lastName = rs.getString("LastName");
+                Boolean isAdmin = rs.getBoolean("isAdmin");
                 System.out.println("Welcome " + firstName);
                 bean.setIdu(idu);
                 bean.setFirstName(firstName);
                 bean.setLastName(lastName);
                 bean.setValid(true);
+                bean.setIsAdmin(isAdmin);
             }
 
         }

@@ -55,8 +55,8 @@ public class MyControllerProject extends HttpServlet {
 		request.setAttribute("errorMessage", error);
 		String destinationPage = "/error.jsp";
 
-		if (actionName.equals("ProjectDel")) {
-			int id = Integer.parseInt(request.getParameter("idt"));
+		if (actionName.equals("projectDel")) {
+			int id = Integer.parseInt(request.getParameter("idp"));
 			projectDAO.deleteProject(id);
 			refresh_view = true;
 		}
@@ -117,16 +117,18 @@ public class MyControllerProject extends HttpServlet {
             }
 
             int countRows = projectDAO.countRows(user.getIdu());
-            System.out.println(page);
+            System.out.println(user.isAdmin());
             int start = page * (paginationNum) - paginationNum;
 
             if(start + paginationNum < countRows)request.setAttribute("hasNext", "true");
             else request.setAttribute("hasNext", "false");
 
             request.setAttribute("page", page);
-            request.setAttribute("numOfPages", countRows/paginationNum+1);
+            request.setAttribute("numOfPages", countRows/(paginationNum+1)+1);
 
-            List<Project> projectList = projectDAO.getProject(start, paginationNum, user.getIdu());
+            if(user.isAdmin())request.setAttribute("isAdmin", "true");
+
+            List<Project> projectList = projectDAO.getProject(start, paginationNum, user.getIdu(), user.isAdmin());
 			request.setAttribute("projectList", projectList);
 			destinationPage = "/WEB-INF/projectList.jsp";
 		}
