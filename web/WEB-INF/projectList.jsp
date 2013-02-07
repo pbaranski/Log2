@@ -6,6 +6,7 @@
 <body>
 <div>
     <h1 style="text-align:center;">Task list</h1>
+
     <h2 style="text-align:center;">Hello ${currentSessionUser.username}</h2>
 
 </div>
@@ -35,8 +36,12 @@
                 <c:if test='${isAdmin != null}'>
                     <td><input type="submit" value="edit"
                                ONCLICK="window.location.href='projectEdit.pro?idp=${project.idp}'"/></td>
-                    <td><input type="submit" value="delete"
-                               ONCLICK="window.location.href='projectDel.pro?idp=${project.idp}'"/></td>
+                    <form name="lol"  method ="GET" onsubmit="return validateForm(${project.idp})">
+                        <td><input type="submit" value="delete"/></td>
+
+                    </form>
+                <form name="lol2"  method ="GET">
+                </form>
                 </c:if>
             </tr>
         </c:forEach>
@@ -65,4 +70,16 @@
 </div>
 
 </body>
+<script>
+    function validateForm(val) {
+        var r = confirm("Are you sure you want to delete whole project with every task assigned?");
+        if(r == true){
+            window.location.replace('projectDel.pro?idp='+val);
+             alert(" Document deleted ")
+        }else window.location.href('projectList.pro')
+
+
+
+    }
+</script>
 </html>

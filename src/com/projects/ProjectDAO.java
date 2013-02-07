@@ -12,12 +12,15 @@ import java.util.List;
 
 public class ProjectDAO {
 
-    public int countRows(int userId) {
+    public int countRows(int userId,boolean isAdmin) {
         Connection con = DBConnect.getConnection();
         int countRows = 0;
         //TODO no zapytanko jeszcze po idu muszą iść
         try {
-            ResultSet rs = con.createStatement().executeQuery("SELECT COUNT(*) FROM users_has_projects WHERE users_idu = " + userId);
+
+            ResultSet rs;
+            if(!isAdmin)rs = con.createStatement().executeQuery("SELECT COUNT(*) FROM users_has_projects WHERE users_idu = " + userId);
+            else rs = con.createStatement().executeQuery("SELECT COUNT(*) FROM projects");
             while (rs.next()) {
                 countRows = rs.getInt(1);
             }
@@ -209,14 +212,14 @@ public class ProjectDAO {
 
         try {
             Connection con = DBConnect.getConnection();
-            PreparedStatement pstmt = con.prepareStatement("SELECT users_idu, firstName, lastName, uname FROM tasak.users INNER JOIN tasak.users_has_projects  ON  tasak.users.idu = tasak.users_has_projects.users_idu WHERE  tasak.users_has_projects.projects_idp != ?");
+            PreparedStatement pstmt = con.prepareStatement("SELECT * from tasak.users  WHERE tasak.users.idu NOT IN (SELECT tasak.users_has_projects.users_idu from tasak.users_has_projects where tasak.users_has_projects.projects_idp = ?)");
             pstmt.setInt(1, idp);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 LoginBean user = new LoginBean();
                 user.setLastName(rs.getString("lastName"));
-                user.setIdu(rs.getInt("users_idu"));
+                user.setIdu(rs.getInt("idu"));
                 user.setUserName(rs.getString("uname"));
                 user.setFirstName(rs.getString("firstName"));
                 user.setIdp(idp);

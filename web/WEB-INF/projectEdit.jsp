@@ -6,6 +6,7 @@
 <body>
 <div>
     <h1 style="text-align:center;">Task list</h1>
+
     <h2 style="text-align:center;">Hello ${currentSessionUser.username} in project: ${project.name}</h2>
 </div>
 <div>
@@ -16,16 +17,18 @@
 </div>
 <div>
     <c:if test='${project != null}'>
-    <form action="projectEditSave.pro">
+    <form name="actionForm2" action="projectEditSave.pro" onsubmit="return validateForm()" method="POST">
         <input type="hidden" name="idp" value="${project.idp}">
         <table>
             <tr>
                 <td>Project name:</td>
                 <td><input type="text" name="name" value="${project.name}"><br/></td>
+                <td id="errorName"  style="display:none; color: #FF00FF" >wrong input format</td>
             </tr>
             <tr>
                 <td>Project description:</td>
                 <td><input type="text" name="description" value="${project.description}"><br/></td>
+                <td id="errorDesc"  style="display:none; color: #FF00FF" >wrong input format</td>
             </tr>
         </table>
         <input type="submit" value="Update"/>
@@ -49,16 +52,52 @@
                     </td>
                 </tr>
             </c:forEach>
-        </table>
-    </div>
-</div>
-<div>
-    <form action="addUserToProject.pro">
-        <input type="hidden" name="idp" value="${project.idp}">
-        User Id: <input type="text" name="idu"><br/>
-        <input type="submit" value="Add user to project"/>
-    </form>
+
+
+                <c:forEach items='${notInProjectUserList}' var='user'>
+                <form action="addUserToProject.pro">
+                    <tr>
+                        <td>${user.idu}</td>
+                        <td>${user.username}</td>
+                        <td>${user.firstName}</td>
+                        <td>${user.lastName}</td>
+                        <td>
+                            <input type="hidden" name="idp" value="${project.idp}">
+                            <input type="hidden" name="idu" value="${user.idu}">
+                            <input type="submit" value="add">
+
+                        </td>
+                    </tr>
+                </form>
+                </c:forEach>
+            </table>
+        </div>
+
+
     </c:if>
 </div>
 </body>
+<script>
+    function validateForm()
+    {
+        var result = true;
+        var letterNumber = /^[0-9a-zA-Z]+$/;
+        var name=document.forms["actionForm2"]["name"].value;
+        var desc=document.forms["actionForm2"]["description"].value;
+
+        if (!name.match(letterNumber) || name.length>12 )
+        {
+            document.getElementById('errorName').style.display = "block";
+            result =  false;
+        } else document.getElementById('errorName').style.display = "none";
+
+        if (!desc.match(letterNumber)|| desc.length>12 )
+        {
+            document.getElementById('errorDesc').style.display = "block";
+            result = false;
+        } else document.getElementById('errorDesc').style.display = "none";
+
+        return result;
+    }
+</script>
 </html>

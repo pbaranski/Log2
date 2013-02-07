@@ -92,7 +92,9 @@ public class MyControllerProject extends HttpServlet {
 			Project project = projectDAO.getProject(id);
 			request.setAttribute("project", project);
             List<LoginBean> projectUserList = projectDAO.getProjectUserList(project.getIdp());
+            List<LoginBean> notInProjectUserList = projectDAO.getNotInProjectUserList(project.getIdp());
             request.setAttribute("projectUserList", projectUserList);
+            request.setAttribute("notInProjectUserList", notInProjectUserList);
 			destinationPage = "/WEB-INF/projectEdit.jsp";
 		}
 
@@ -116,9 +118,9 @@ public class MyControllerProject extends HttpServlet {
                 System.out.println("Page atribute not atached");
             }
 
-            int countRows = projectDAO.countRows(user.getIdu());
-            System.out.println(user.isAdmin());
-            int start = page * (paginationNum) - paginationNum;
+            int countRows = projectDAO.countRows(user.getIdu(), user.isAdmin());
+            System.out.println();
+            int start = page * paginationNum - paginationNum;
 
             if(start + paginationNum < countRows)request.setAttribute("hasNext", "true");
             else request.setAttribute("hasNext", "false");
