@@ -12,14 +12,15 @@ import java.util.List;
 
 public class ProjectDAO {
 
-    public int countRows(int userId,boolean isAdmin) {
+    public int countRows(int userId, boolean isAdmin) {
         Connection con = DBConnect.getConnection();
         int countRows = 0;
         //TODO no zapytanko jeszcze po idu muszą iść
         try {
 
             ResultSet rs;
-            if(!isAdmin)rs = con.createStatement().executeQuery("SELECT COUNT(*) FROM users_has_projects WHERE users_idu = " + userId);
+            if (!isAdmin)
+                rs = con.createStatement().executeQuery("SELECT COUNT(*) FROM users_has_projects WHERE users_idu = " + userId);
             else rs = con.createStatement().executeQuery("SELECT COUNT(*) FROM projects");
             while (rs.next()) {
                 countRows = rs.getInt(1);
@@ -112,6 +113,7 @@ public class ProjectDAO {
             }
         } catch (SQLException ec) {
             ec.printStackTrace();
+            return 1;
         }
         return 1;
     }
@@ -123,8 +125,8 @@ public class ProjectDAO {
                     "INSERT INTO projects(NAME,description) VALUES(?,?)");
             pstmt.setString(1, project.getName());
             pstmt.setString(2, project.getDescription());
-            insertUserToProject(user_idu, getProjectLastId());
             pstmt.executeUpdate();
+            insertUserToProject(user_idu, getProjectLastId());
 
         } catch (SQLException ec) {
             ec.printStackTrace();
@@ -207,6 +209,7 @@ public class ProjectDAO {
 
         return projectUserList;  //To change body of created methods use File | Settings | File Templates.
     }
+
     public List<LoginBean> getNotInProjectUserList(int idp) {
         List<LoginBean> projectUserList = new ArrayList<>();
 

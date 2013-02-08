@@ -7,7 +7,9 @@
 <div>
     <h1 style="text-align:center;">Task list</h1>
 
-    <h2 style="text-align:center;">Hello ${currentSessionUser.username} in project: ${project.name}</h2>
+    <h2 style="text-align:center;">Hello ${currentSessionUser.username}</h2>
+    <h2 style="text-align:center;">Project: ${projectName}</h2>
+    <h3 style="text-align:center;">Wind of change - edit some project.</h3>
 </div>
 <div>
     <jsp:include page="../logout.jsp"/>
@@ -81,7 +83,7 @@
     function validateForm()
     {
         var result = true;
-        var letterNumber = /^[0-9a-zA-Z]+$/;
+        var letterNumber = /^[0-9a-zA-Z. ]+$/;
         var name=document.forms["actionForm2"]["name"].value;
         var desc=document.forms["actionForm2"]["description"].value;
 

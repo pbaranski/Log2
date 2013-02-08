@@ -125,10 +125,12 @@ public class MyControllerProject extends HttpServlet {
             if(start + paginationNum < countRows)request.setAttribute("hasNext", "true");
             else request.setAttribute("hasNext", "false");
 
+            int numOfPages = (countRows-1)/(paginationNum)+1;
             request.setAttribute("page", page);
-            request.setAttribute("numOfPages", countRows/(paginationNum+1)+1);
+            request.setAttribute("numOfPages", numOfPages);
 
             if(user.isAdmin())request.setAttribute("isAdmin", "true");
+            //TODO Czy zamiast tego ifa to powinno być w sesji i wyciągane jakoś na stronie
 
             List<Project> projectList = projectDAO.getProject(start, paginationNum, user.getIdu(), user.isAdmin());
 			request.setAttribute("projectList", projectList);

@@ -8,7 +8,9 @@
 <div>
     <h1 style="text-align:center;">Task list</h1>
 
-    <h2 style="text-align:center;">Hello ${currentSessionUser.username} in project: ${projectName}</h2>
+    <h2 style="text-align:center;">Hello ${currentSessionUser.username}</h2>
+    <h2 style="text-align:center;">Project: ${projectName}</h2>
+    <h3 style="text-align:center;">Task area</h3>
 </div>
 <div>
     <jsp:include page="../logout.jsp"/>
