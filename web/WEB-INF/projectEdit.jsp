@@ -87,13 +87,13 @@
         var name=document.forms["actionForm2"]["name"].value;
         var desc=document.forms["actionForm2"]["description"].value;
 
-        if (!name.match(letterNumber) || name.length>12 )
+        if (!name.match(letterNumber) || name.length>20 )
         {
             document.getElementById('errorName').style.display = "block";
             result =  false;
         } else document.getElementById('errorName').style.display = "none";
 
-        if (!desc.match(letterNumber)|| desc.length>12 )
+        if (!desc.match(letterNumber)|| desc.length>120 )
         {
             document.getElementById('errorDesc').style.display = "block";
             result = false;

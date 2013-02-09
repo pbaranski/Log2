@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_log2" default="compile.module.log2">
+  <dirname property="module.log2.basedir" file="${ant.file.module_log2}"/>
+  
+  <property name="module.jdk.home.log2" value="${jdk.home.1.7}"/>
+  <property name="module.jdk.bin.log2" value="${jdk.bin.1.7}"/>
+  <property name="module.jdk.classpath.log2" value="jdk.classpath.1.7"/>
+  
+  <property name="compiler.args.log2" value="${compiler.args}"/>
+  
+  <property name="log2.output.dir" value="${module.log2.basedir}/out/production/Log2"/>
+  <property name="log2.testoutput.dir" value="${module.log2.basedir}/out/test/Log2"/>
+  
+  <path id="log2.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="log2.module.production.classpath">
+    <path refid="${module.jdk.classpath.log2}"/>
+    <path refid="library.java_ee_6-java_ee_6.classpath"/>
+    <path refid="library.mysql-connector-java-5.0.8-bin.classpath"/>
+    <path refid="library.jstl-1.2.classpath"/>
+  </path>
+  
+  <path id="log2.runtime.production.module.classpath">
+    <pathelement location="${log2.output.dir}"/>
+    <path refid="library.java_ee_6-java_ee_6.classpath"/>
+    <path refid="library.mysql-connector-java-5.0.8-bin.classpath"/>
+    <path refid="library.jstl-1.2.classpath"/>
+  </path>
+  
+  <path id="log2.module.classpath">
+    <path refid="${module.jdk.classpath.log2}"/>
+    <pathelement location="${log2.output.dir}"/>
+    <path refid="library.java_ee_6-java_ee_6.classpath"/>
+    <path refid="library.mysql-connector-java-5.0.8-bin.classpath"/>
+    <path refid="library.jstl-1.2.classpath"/>
+  </path>
+  
+  <path id="log2.runtime.module.classpath">
+    <pathelement location="${log2.testoutput.dir}"/>
+    <pathelement location="${log2.output.dir}"/>
+    <path refid="library.java_ee_6-java_ee_6.classpath"/>
+    <path refid="library.mysql-connector-java-5.0.8-bin.classpath"/>
+    <path refid="library.jstl-1.2.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.log2">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.log2">
+    <patternset refid="excluded.from.module.log2"/>
+  </patternset>
+  
+  <path id="log2.module.sourcepath">
+    <dirset dir="${module.log2.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.log2" depends="compile.module.log2.production,compile.module.log2.tests" description="Compile module Log2"/>
+  
+  <target name="compile.module.log2.production" depends="register.custom.compilers" description="Compile module Log2; production classes">
+    <mkdir dir="${log2.output.dir}"/>
+    <javac2 destdir="${log2.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.log2}/javac">
+      <compilerarg line="${compiler.args.log2}"/>
+      <bootclasspath refid="log2.module.bootclasspath"/>
+      <classpath refid="log2.module.production.classpath"/>
+      <src refid="log2.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.log2"/>
+    </javac2>
+    
+    <copy todir="${log2.output.dir}">
+      <fileset dir="${module.log2.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.log2.tests" depends="register.custom.compilers,compile.module.log2.production" description="compile module Log2; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.log2" description="cleanup module">
+    <delete dir="${log2.output.dir}"/>
+    <delete dir="${log2.testoutput.dir}"/>
+  </target>
+</project>

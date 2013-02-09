@@ -49,12 +49,12 @@
         var desc = document.forms["actionForm3"]["description"].value;
         var user = document.forms["actionForm3"]["user_idu"].value;
 
-        if (!name.match(letterNumber) || name.length > 12) {
+        if (!name.match(letterNumber) || name.length > 20) {
             document.getElementById('errorName').style.display = "block";
             result = false;
         } else document.getElementById('errorName').style.display = "none";
 
-        if (!desc.match(letterNumber) || desc.length > 12) {
+        if (!desc.match(letterNumber) || desc.length > 120) {
             document.getElementById('errorDesc').style.display = "block";
             result = false;
         } else document.getElementById('errorDesc').style.display = "none";
