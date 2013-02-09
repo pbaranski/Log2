@@ -46,9 +46,8 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
         if (user.isValid()) {
             HttpSession session = request.getSession(true);
             session.setAttribute("currentSessionUser", user);
-            response.addHeader("to jest custom header", "lolololo");
             user.setLastName(response.toString());
-            response.sendRedirect("/taskList.og");
+            response.sendRedirect("/projectList.pro");
         } else {
 
             request.setAttribute("errorInfo", "WRONG USER OR PASSWORD");
