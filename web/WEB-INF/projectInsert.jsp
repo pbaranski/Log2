@@ -18,27 +18,58 @@
     <jsp:include page="../logout.jsp"/>
 </div>
 <div>
+    <input type="submit" value="Go back to projects" ONCLICK="window.location.href='/projectList.pro'"/>
+</div>
+<div>
 
     <form name="actionForm3" action="projectInsertSave.pro" onsubmit="return validateForm()">
         <table>
             <tr>
-                <td>name: <input type="text" name="name"></td>
+                <td>Name:</td><td><input type="text" name="name"></td>
                 <td id="errorName" style="display:none; color: #FF00FF">wrong input format</td>
             </tr>
             <tr>
-                <td> description: <input type="text" name="description"></td>
+                <td>Description:</td><td><input type="text" name="description"></td>
                 <td id="errorDesc" style="display:none; color: #FF00FF">wrong input format</td>
             </tr>
             <tr>
-                <td>user: <input type="text" name="user_idu"></td>
-                <td id="errorUser" style="display:none; color: #FF00FF">wrong input format</td>
+                <td>User:</td>
+                <td><select name="user_idu">
+                        <c:forEach items='${notInProjectUserList}' var='user'>
+                         <option value="${user.idu}">${user.idu}, ${user.username}</option>
+                        </c:forEach>
+                    </select></td>
             </tr>
-            <tr>  <td>
+            <td id="errorUser" style="display:none; color: #FF00FF">wrong input format</td>
+            </tr>
+            <tr>
+                <td>
 
-                <input type="submit" value="Submit"/> <td></tr>
+                    <input type="submit" value="Submit"/>
+                <td>
+            </tr>
         </table>
     </form>
 </div>
+
+
+<div><h4>* Chose id of one user</h4></div>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nick</th>
+        <th>Name</th>
+        <th>Surname</th>
+    </tr>
+    <c:forEach items='${notInProjectUserList}' var='user'>
+        <tr>
+            <td>${user.idu}</td>
+            <td>${user.username}</td>
+            <td>${user.firstName}</td>
+            <td>${user.lastName}</td>
+        </tr>
+    </c:forEach>
+</table>
 </body>
 <script>
     function validateForm() {

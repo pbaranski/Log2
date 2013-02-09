@@ -28,42 +28,46 @@
         </c:if>
         <table>
             <tr>
-                <td>
+
 
                     <input type="hidden" name="idt" value="${task.idt}">
 
-                    name: <input type="text" name="name" value="${task.name}"><br/>
+                <td>Name:</td><td> <input type="text" name="name" value="${task.name}"><br/>
                 </td>
                 <td id="errorName" style="display:none; color: #FF00FF">wrong input format</td>
             </tr>
             <tr>
                 <td>
-                    priority: <input type="text" name="priority" value="${task.priority}"><br/>
+                    Priority:</td><td><select name="priority">
+                <option value="High">High</option>
+                <option value="Mid">Mid</option>
+                <option value="Low">Low</option>
+            </select><br/>
                 </td>
                 <td id="errorPrior" style="display:none; color: #FF00FF">wrong input format</td>
             </tr>
             <tr>
                 <td>
-                    timeToDo: <input type="text" name="timeToDo" value="${task.timeToDo}"><br/>
+                    Time to do in hours:</td><td><input type="text" name="timeToDo" value="${task.timeToDo}"><br/>
                 </td>
-                <td id="errorTimeT" style="display:none; color: #FF00FF">wrong input format</td>
+                <td id="errorTimeT" style="display:none; color: #FF00FF">Accepted 1 2.0 3.3</td>
             </tr>
             <tr>
                 <td>
-                    description: <input type="text" name="description" value="${task.description}"><br/>
+                    Description:</td><td><input type="text" name="description" value="${task.description}"><br/>
                 </td>
                 <td id="errorDesc" style="display:none; color: #FF00FF">wrong input format</td>
             </tr>
             <tr>
                 <td>
                     <c:if test='${isAdmin != null}'>
-                    projectId: <input type="text" name="projectId" value="${task.projectId}"><br/>
+                    ProjectId:</td><td><input type="text" name="projectId" value="${task.projectId}"><br/>
                 </td>
                 <td id="errorProjI" style="display:none; color: #FF00FF">wrong input format</td>
             </tr>
             <tr>
                 <td>
-                    userId: <input type="text" name="userId" value="${task.userId}"><br/>
+                    UserId:</td><td> <input type="text" name="userId" value="${task.userId}"><br/>
                 </td>
                 <td id="errorUserI" style="display:none; color: #FF00FF">wrong input format</td>
             </tr>

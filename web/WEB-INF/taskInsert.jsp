@@ -30,45 +30,64 @@
 
             <table>
                 <tr>
+                    <th>Details</th>
+                    <th>Insert Data</th>
+                </tr>
+                <tr>
+                    <td>Name:</td>
                     <td>
-                        name: <input type="text" name="name"><br/>
+                        <input type="text" name="name"><br/>
                     </td>
                     <td id="errorName" style="display:none; color: #FF00FF">wrong input format</td>
                 </tr>
                 <tr>
+                    <td>Priority:</td>
                     <td>
-                        priority: <input type="text" name="priority"><br/>
+                        <select name="priority">
+                            <option value="High">High</option>
+                            <option value="Mid">Mid</option>
+                            <option value="Low">Low</option>
+                        </select>
+
+
+                        <br/>
                     </td>
                     <td id="errorPrior" style="display:none; color: #FF00FF">wrong input format</td>
                 </tr>
                 <tr>
+                    <td>Time to do in hours:</td>
                     <td>
-                        timeToDo: <input type="text" name="timeToDo"><br/>
+                        <input type="text" name="timeToDo"><br/>
                     </td>
                     <td id="errorTimeT" style="display:none; color: #FF00FF">wrong input format</td>
                 </tr>
                 <tr>
+                    <td>Description:</td>
                     <td>
-                        description: <input type="text" name="description"><br/>
+                        <input type="text" name="description"><br/>
                     </td>
                     <td id="errorDesc" style="display:none; color: #FF00FF">wrong input format</td>
                 </tr>
                 <tr>
+                    <c:if test='${isAdmin != null}'>
+
+
+                    <td>Project id:</td>
                     <td>
-                        <c:if test='${isAdmin != null}'>
-                        project id: <input type="text" name="projectId" value="${idp}"><br/>
+                        <input type="text" name="projectId" value="${idp}"><br/>
                     </td>
                     <td id="errorProjI" style="display:none; color: #FF00FF">wrong input format</td>
                 </tr>
                 <tr>
+                    <td>User id:</td>
                     <td>
-                        user id: <input type="text" name="userId" value=${idu}><br/>
+                        <input type="text" name="userId" value=${idu}><br/>
                     </td>
                     <td id="errorUserI" style="display:none; color: #FF00FF">wrong input format</td>
                 </tr>
                 <tr>
+                    </c:if>
                     <td>
-                        </c:if>
                         <input type="submit" value="Submit"/></td>
                 </tr>
             </table>

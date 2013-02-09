@@ -19,12 +19,12 @@ public class LoginDAO
         String searchQuery = "select * from users where uname='" + username + "' AND password='" + password + "'";
 
         if(!DBConnect.isConnected()){
-//            DBConnect.setLocation("jdbc:mysql://127.10.200.129/tasak");
-//            DBConnect.setLogin("adminBeLIEKC");
-//            DBConnect.setPassword("2FB-2AjbnSMT");
-            DBConnect.setLocation("jdbc:mysql://127.0.0.1/tasak");
-            DBConnect.setLogin("root");
-            DBConnect.setPassword("");
+            DBConnect.setLocation("jdbc:mysql://127.10.200.129/tasak");
+            DBConnect.setLogin("adminBeLIEKC");
+            DBConnect.setPassword("2FB-2AjbnSMT");
+           // DBConnect.setLocation("jdbc:mysql://127.0.0.1/tasak");
+           // DBConnect.setLogin("root");
+           // DBConnect.setPassword("");
 
 
             DBConnect.connect();

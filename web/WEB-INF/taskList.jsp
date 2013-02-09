@@ -55,7 +55,13 @@
     </c:if>
 
     <c:forEach var='p' begin='1' end="${numOfPages}">
-        <td><input type="submit" value='${p}' ONCLICK="window.location.href='taskList.og?idp=${idp}&page=${p}'"/></td>
+        <c:if test="${p==page}">
+            <td><input type="submit" style="color: #dc143c" value='${p}' ONCLICK="window.location.href='taskList.og?idp=${idp}&page=${p}'"/></td>
+        </c:if>
+        <c:if test="${p!=page}">
+            <td><input type="submit" value='${p}' ONCLICK="window.location.href='taskList.og?idp=${idp}&page=${p}'"/></td>
+        </c:if>
+
     </c:forEach>
 
     <c:if test='${page > 1}'>

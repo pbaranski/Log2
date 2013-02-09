@@ -8,8 +8,6 @@
         </descriptors>
         <webroots>
           <root url="file://$MODULE_DIR$/web" relative="/" />
-          <root url="file://$MODULE_DIR$/src/com/tasks" relative="/tasks" />
-          <root url="file://$MODULE_DIR$/src/com/login" relative="/login" />
         </webroots>
       </configuration>
     </facet>
@@ -19,11 +17,10 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-5.0.8-bin" level="project" />
-    <orderEntry type="library" name="jstl-1.2" level="project" />
   </component>
 </module>
 

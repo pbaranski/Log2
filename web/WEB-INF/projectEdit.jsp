@@ -56,7 +56,7 @@
             </c:forEach>
 
 
-                <c:forEach items='${notInProjectUserList}' var='user'>
+            <c:forEach items='${notInProjectUserList}' var='user'>
                 <form action="addUserToProject.pro">
                     <tr>
                         <td>${user.idu}</td>
@@ -71,7 +71,7 @@
                         </td>
                     </tr>
                 </form>
-                </c:forEach>
+            </c:forEach>
             </table>
         </div>
 

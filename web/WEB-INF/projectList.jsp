@@ -36,12 +36,15 @@
                 <c:if test='${isAdmin != null}'>
                     <td><input type="submit" value="edit"
                                ONCLICK="window.location.href='projectEdit.pro?idp=${project.idp}'"/></td>
-                    <form name="lol"  method ="GET" onsubmit="return validateForm(${project.idp})">
-                        <td><input type="submit" value="delete"/></td>
+                    <td>
 
-                    </form>
-                <form name="lol2"  method ="GET">
-                </form>
+                        <form name="lol2${project.idp}" action="projectDel.pro">
+                            <input type="hidden" name="idp" value="${project.idp}">
+                            <td><input type="submit" value="delete" ONCLICK="return validateForm(${project.idp})"/></td>
+                        </form>
+
+                    </td>
+
                 </c:if>
             </tr>
         </c:forEach>
@@ -61,7 +64,13 @@
     </c:if>
 
     <c:forEach var='p' begin='1' end="${numOfPages}">
-        <td><input type="submit" value='${p}' ONCLICK="window.location.href='projectList.pro?page=${p}'"/></td>
+        <c:if test="${p==page}">
+        <td><input type="submit" style="color: #dc143c" value='${p}' ONCLICK="window.location.href='projectList.pro?page=${p}'"/></td>
+        </c:if>
+        <c:if test="${p!=page}">
+            <td><input type="submit" style="color: black;" value='${p}' ONCLICK="window.location.href='projectList.pro?page=${p}'"/></td>
+        </c:if>
+
     </c:forEach>
 
     <c:if test='${page > 1}'>
@@ -71,15 +80,11 @@
 
 </body>
 <script>
-    function validateForm(val) {
-        var r = confirm("Are you sure you want to delete whole project with every task assigned?");
-        if(r == true){
-            window.location.replace('projectDel.pro?idp='+val);
-             alert(" Document deleted ")
-        }else window.location.href('projectList.pro')
-
-
-
+    function validateForm(num) {
+        if (confirm("Are you sure you want to delete projects with all subtasks?")) {
+            document.getElementsByName("lol2" + num).submit();
+        }
+        return false;
     }
 </script>
 </html>

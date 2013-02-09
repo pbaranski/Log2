@@ -76,6 +76,8 @@ public class MyControllerProject extends HttpServlet {
         }
 
 		if (actionName.equals("projectInsert")) {
+            List<LoginBean> notInProjectUserList = projectDAO.getNotInProjectUserList(0);
+            request.setAttribute("notInProjectUserList", notInProjectUserList);
 			destinationPage = "/WEB-INF/projectInsert.jsp";
 		}
 		if (actionName.equals("projectInsertSave")) {
@@ -104,7 +106,7 @@ public class MyControllerProject extends HttpServlet {
 			project.setName(request.getParameter("name"));
 			project.setDescription(request.getParameter("description"));
 
-            projectDAO.updateProject(project);
+           projectDAO.updateProject(project);
 			refresh_view = true;
 		}
 
