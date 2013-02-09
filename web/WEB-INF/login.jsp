@@ -20,7 +20,9 @@
     <div>
         Witaj ${showLogout}
         Wyloguj się albo pocinaj do listy
-        TOBD przycisk do listy
+        <div>
+            <input type="submit" value="Go back to projects" ONCLICK="window.location.href='/projectList.pro'"/>
+        </div>
         <div>
             <jsp:include page="../logout.jsp" />
         </div>
