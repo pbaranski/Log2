@@ -10,14 +10,27 @@ package com.login;
 
 
 public class LoginBean {
+    private int idu;
+    private int idp;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
+    private boolean isAdmin;
     public boolean valid;
+
+    public int getIdp() {
+        return idp;
+    }
+
+    public void setIdp(int idp) {
+        this.idp = idp;
+    }
+
     public String getFirstName()
     {
         return firstName;
+
     }
     public void setFirstName(String newFirstName)
     {
@@ -56,4 +69,21 @@ public class LoginBean {
         valid = newValid;
     }
 
+    public boolean isAdmin()
+    {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean newAdmin)
+    {
+        isAdmin = newAdmin;
+    }
+
+    public int getIdu() {
+        return idu;
+    }
+
+    public void setIdu(int idu) {
+        this.idu = idu;
+    }
 }
