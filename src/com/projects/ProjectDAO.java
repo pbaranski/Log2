@@ -1,5 +1,4 @@
 package com.projects;
-
 import com.login.LoginBean;
 import db.DBConnect;
 
@@ -11,33 +10,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectDAO {
+    Connection con = DBConnect.getConnection();
 
     public int countRows(int userId, boolean isAdmin) {
-        Connection con = DBConnect.getConnection();
         int countRows = 0;
         //TODO no zapytanko jeszcze po idu muszą iść
         try {
 
             ResultSet rs;
-            if (!isAdmin)
-                rs = con.createStatement().executeQuery("SELECT COUNT(*) FROM users_has_projects WHERE users_idu = " + userId);
-            else rs = con.createStatement().executeQuery("SELECT COUNT(*) FROM projects");
+            PreparedStatement pstmt;
+            if (!isAdmin){
+               pstmt  = con.prepareStatement("SELECT COUNT(*) FROM users_has_projects WHERE users_idu = ?");
+               pstmt.setInt(1, userId);
+            }
+            else pstmt  = con.prepareStatement("SELECT COUNT(*) FROM projects");
+
+            rs = pstmt.executeQuery();
+
             while (rs.next()) {
                 countRows = rs.getInt(1);
             }
         } catch (SQLException e) {
             System.out.println("Błąd w obliczeniu count");
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
         return countRows;
     }
 
     public List<Project> getProject(int startRow, int numberOfRecords, int idUser, boolean isAdmin) {
         List<Project> list = new ArrayList<Project>();
-
         try {
-            Connection con = DBConnect.getConnection();
-            // TODO do zapytania trzeba wrzucic filtrowanie po id albo admin
             PreparedStatement pstmt;
             if (isAdmin) {
                 pstmt = con.prepareStatement("SELECT * FROM projects limit ?, ?");
@@ -49,10 +51,7 @@ public class ProjectDAO {
                 pstmt.setInt(2, startRow);
                 pstmt.setInt(3, numberOfRecords);
             }
-
             ResultSet rs = pstmt.executeQuery();
-            // ResultSet rs = con.createStatement().executeQuery("select * from projects limit " + startRow + ", " + numberOfRecords);
-
             while (rs.next()) {
                 Project project = new Project();
 
@@ -71,8 +70,6 @@ public class ProjectDAO {
     public Project getProject(int idp) {
         Project project = new Project();
         try {
-            Connection con = DBConnect.getConnection();
-            //TODO filtrowanie po user || admin
             ResultSet rs = con.createStatement()
                     .executeQuery("SELECT * FROM projects WHERE idp=" + idp);
             if (rs.next()) {
@@ -103,7 +100,6 @@ public class ProjectDAO {
     }
 
     public int getProjectLastId() {
-        Project project = new Project();
         try {
             Connection con = DBConnect.getConnection();
             ResultSet rs = con.createStatement()
@@ -120,7 +116,6 @@ public class ProjectDAO {
 
     public void insertProject(Project project, int user_idu) {
         try {
-            Connection con = DBConnect.getConnection();
             PreparedStatement pstmt = con.prepareStatement(
                     "INSERT INTO projects(NAME,description) VALUES(?,?)");
             pstmt.setString(1, project.getName());
@@ -135,8 +130,6 @@ public class ProjectDAO {
 
     public void insertUserToProject(int user_idu, int project_idp) {
         try {
-            Connection con = DBConnect.getConnection();
-
             PreparedStatement pstmt = con.prepareStatement(
                     "INSERT INTO users_has_projects(users_idu, projects_idp) VALUES(?,?)");
             pstmt.setInt(1, user_idu);
@@ -149,24 +142,18 @@ public class ProjectDAO {
 
     public void updateProject(Project project) {
         try {
-            Connection con = DBConnect.getConnection();
-            con.createStatement().executeUpdate(
-                    "UPDATE tasak.projects " +
-                            " SET tasak.projects.name='" + project.getName() + "'," +
-                            " tasak.projects.description='" + project.getDescription() + "' " +
-                            " WHERE tasak.projects.idp=" + project.getIdp());
+            PreparedStatement pstmt = con.prepareStatement("UPDATE tasak.projects SET tasak.projects.name= ?, tasak.projects.description= ? WHERE tasak.projects.idp= ?");
+                           pstmt.setString(1, project.getName());
+                           pstmt.setString(2, project.getDescription());
+                           pstmt.setInt(3, project.getIdp());
+            pstmt.executeUpdate();
         } catch (SQLException ec) {
             ec.printStackTrace();
         }
     }
 
-    public void deleteProject(Project project) {
-        deleteProject(project.getIdp());
-    }
-
     public void deleteProject(int idp) {
         try {
-            Connection con = DBConnect.getConnection();
             con.createStatement().executeUpdate(
                     "DELETE FROM users_has_projects WHERE users_has_projects.projects_idp = " + idp);
 
@@ -188,7 +175,6 @@ public class ProjectDAO {
         List<LoginBean> projectUserList = new ArrayList<>();
 
         try {
-            Connection con = DBConnect.getConnection();
             PreparedStatement pstmt = con.prepareStatement("SELECT users_idu, firstName, lastName, uname FROM tasak.users INNER JOIN tasak.users_has_projects  ON  tasak.users.idu = tasak.users_has_projects.users_idu WHERE  tasak.users_has_projects.projects_idp = ?");
             pstmt.setInt(1, idp);
             ResultSet rs = pstmt.executeQuery();
@@ -214,7 +200,6 @@ public class ProjectDAO {
         List<LoginBean> projectUserList = new ArrayList<>();
 
         try {
-            Connection con = DBConnect.getConnection();
             PreparedStatement pstmt = con.prepareStatement("SELECT * from tasak.users  WHERE tasak.users.idu NOT IN (SELECT tasak.users_has_projects.users_idu from tasak.users_has_projects where tasak.users_has_projects.projects_idp = ?)");
             pstmt.setInt(1, idp);
             ResultSet rs = pstmt.executeQuery();
@@ -232,15 +217,15 @@ public class ProjectDAO {
         } catch (SQLException ec) {
             ec.printStackTrace();
         }
-
         return projectUserList;  //To change body of created methods use File | Settings | File Templates.
     }
 
     public void removeUser(int idu, int idp) {
         try {
-            Connection con = DBConnect.getConnection();
-            con.createStatement().executeUpdate(
-                    "DELETE FROM users_has_projects WHERE users_idu=" + idu + " AND projects_idp=" + idp);
+            PreparedStatement pstmt = con.prepareStatement("DELETE FROM users_has_projects WHERE users_idu= ? AND projects_idp = ?");
+            pstmt.setInt(1, idu);
+            pstmt.setInt(2, idp);
+            pstmt.executeUpdate();
         } catch (SQLException ec) {
             ec.printStackTrace();
         }
@@ -248,7 +233,6 @@ public class ProjectDAO {
 
     public void addUser(int idu, int idp) {
         try {
-            Connection con = DBConnect.getConnection();
             PreparedStatement pstmt = con.prepareStatement(
                     "INSERT INTO users_has_projects(users_idu, projects_idp) VALUES(?,?)");
             pstmt.setInt(1, idu);

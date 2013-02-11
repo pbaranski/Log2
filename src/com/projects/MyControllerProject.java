@@ -38,9 +38,6 @@ public class MyControllerProject extends HttpServlet {
             LoginBean user = (LoginBean) session.getAttribute("currentSessionUser");
 
         if(!DBConnect.isConnected()){
-			DBConnect.setLocation("jdbc:mysql://127.0.0.1/tasak");
-			DBConnect.setLogin("root");
-			DBConnect.setPassword("");
 			DBConnect.connect();
 		}
 
@@ -121,11 +118,12 @@ public class MyControllerProject extends HttpServlet {
             }
 
             int countRows = projectDAO.countRows(user.getIdu(), user.isAdmin());
-            System.out.println();
+
             int start = page * paginationNum - paginationNum;
 
             if(start + paginationNum < countRows)request.setAttribute("hasNext", "true");
             else request.setAttribute("hasNext", "false");
+           //TODO jak jest poprawniej ustawić najpierw nasNext na false i potem if czy tak jak jest tera
 
             int numOfPages = (countRows-1)/(paginationNum)+1;
             request.setAttribute("page", page);

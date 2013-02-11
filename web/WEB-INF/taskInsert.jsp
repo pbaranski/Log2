@@ -113,7 +113,7 @@
             result = false;
         } else document.getElementById('errorName').style.display = "none";
 
-        if (!desc.match(letterNumber) || desc.length > 120) {
+        if (!desc.match(letterNumber) || desc.length > 50) {
             document.getElementById('errorDesc').style.display = "block";
             result = false;
         } else document.getElementById('errorDesc').style.display = "none";
@@ -123,7 +123,7 @@
             result = false;
         } else document.getElementById('errorTimeT').style.display = "none";
 
-        if (!prior.match(letterNumber) || prior.length > 120) {
+        if (!prior.match(letterNumber) || prior.length > 6) {
             document.getElementById('errorPrior').style.display = "block";
             result = false;
         } else document.getElementById('errorPrior').style.display = "none";

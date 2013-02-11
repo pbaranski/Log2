@@ -6,37 +6,13 @@ import java.sql.SQLException;
 
 public class DBConnect {
 	static Connection c = null;
-	//to na final static albo wczytuj z configu
-	static String login = null;
-	static String password = null;
-	static String location = null;
-	
-	//nie rob setterow i geterow z powyższego powodu
-	public static String getLogin() {
-		return login;
-	}
+    //location("jdbc:mysql://127.10.200.129/tasak");
+    //login("adminBeLIEKC");
+//password("2FB-2AjbnSMT");
+    final static String login = "root";
+	final static String password = "";
+	final static String location = "jdbc:mysql://127.0.0.1/tasak";
 
-	public static void setLogin(String login) {
-		DBConnect.login = login;
-	}
-
-	public static String getPassword() {
-		return password;
-	}
-
-	public static void setPassword(String password) {
-		DBConnect.password = password;
-	}
-
-	public static String getLocation() {
-		return location;
-	}
-
-	public static void setLocation(String location) {
-		DBConnect.location = location;
-	}
-	//czyli wszystko powyzej az do pol wywalasz
-	// w dole jest ok.
 	public static Connection getConnection() {
 		if(!isConnected()) connect();
 		return c;

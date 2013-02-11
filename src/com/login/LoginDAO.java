@@ -1,11 +1,10 @@
 package com.login;
 
-import com.login.LoginBean;
 import db.DBConnect;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class LoginDAO
 {
@@ -13,41 +12,28 @@ public class LoginDAO
     static ResultSet rs = null;
     public static LoginBean login(LoginBean bean)
     {
-        Statement stmt = null;
+
         String username = bean.getUsername();
         String password = bean.getPassword();
-        String searchQuery = "select * from users where uname='" + username + "' AND password='" + password + "'";
 
         if(!DBConnect.isConnected()){
-            DBConnect.setLocation("jdbc:mysql://127.10.200.129/tasak");
-            DBConnect.setLogin("adminBeLIEKC");
-            DBConnect.setPassword("2FB-2AjbnSMT");
-           // DBConnect.setLocation("jdbc:mysql://127.0.0.1/tasak");
-           // DBConnect.setLogin("root");
-           // DBConnect.setPassword("");
-
-
             DBConnect.connect();
-        }
-
+    }
 
         try
         {
-//connecting to the DB
-            con = DBConnect.getConnection();
-            stmt= con.createStatement();
-            rs = stmt.executeQuery(searchQuery);
-            boolean userExists = rs.next();
+            Connection con = DBConnect.getConnection();
 
-            if (!userExists)
+           PreparedStatement pstmt = con.prepareStatement("select * from users where uname = ? AND password = ?");
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+            rs = pstmt.executeQuery();
+
+            if (!rs.next())
             {
-
-               String errorLogin  = "Username/Password entered is Incorrect or User does not Exists.";
-                System.out.println(errorLogin);
                 bean.setValid(false);
-
             }
-            else if (userExists)
+            else
             {
                 int idu =  rs.getInt("idu");
                 String firstName = rs.getString("FirstName");
@@ -64,7 +50,7 @@ public class LoginDAO
         }
         catch (Exception ex)
         {
-            System.out.println("Log In failed: An Exception has occurred! " + ex);
+            System.out.println("Log In failed: An Exception has occurred! ");
         }
         return bean;
     }
