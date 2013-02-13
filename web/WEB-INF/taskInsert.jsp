@@ -7,11 +7,7 @@
 <div>
     <h1 style="text-align:center;">Task list</h1>
 
-    <h2 style="text-align:center;">Hello ${currentSessionUser.username}</h2>
-
-    <h2 style="text-align:center;"> Project: ${projectName}</h2>
-
-    <h3 style="text-align:center;"> Let's make more work - add new task!</h3>
+    <h4 style="text-align:center;">Hello ${currentSessionUser.username} , Project: ${projectName}, New Task</h4>
 
 </div>
 <div>
@@ -20,6 +16,7 @@
 <div>
     <input type="submit" value="Go back to TasList" ONCLICK="window.location.href='/taskList.og'"/>
 </div>
+<div style="width: 50%; margin: 0 auto;">
 <div>
     <c:if test='${isAdmin != null}'>
     <form name="actionForm4" action="taskInsertSave.og" onsubmit="return validateForm3(true)">
@@ -28,10 +25,11 @@
         <form name="actionForm4" action="taskInsertSave.og" onsubmit="return validateForm3(false)">
             </c:if>
 
-            <table>
+            <table class="table">
                 <tr>
                     <th>Details</th>
                     <th>Insert Data</th>
+                    <th></th>
                 </tr>
                 <tr>
                     <td>Name:</td>
@@ -88,10 +86,11 @@
                 <tr>
                     </c:if>
                     <td>
-                        <input type="submit" value="Submit"/></td>
+                        <input class="btn btn-info" type="submit" value="Submit"/></td>
                 </tr>
             </table>
         </form>
+</div>
 </div>
 
 </body>
