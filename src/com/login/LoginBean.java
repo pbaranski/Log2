@@ -1,14 +1,5 @@
 package com.login;
 
-/**
- * Created with IntelliJ IDEA.
- * User: A
- * Date: 05.01.13
- * Time: 20:54
- * To change this template use File | Settings | File Templates.
- */
-
-
 public class LoginBean {
     private int idu;
     private int idp;

@@ -29,9 +29,6 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
 
         request.setAttribute("errorInfo", " ");
         request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-       if(request.getParameter("mu")!=null)
-        System.out.println(request.getParameter("mu").toString());
-
     }
 
 
@@ -47,10 +44,11 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
             HttpSession session = request.getSession(true);
             session.setAttribute("currentSessionUser", user);
             user.setLastName(response.toString());
-            response.sendRedirect("/projectList.pro");
+            if(request.getParameter("uri")==null)response.sendRedirect("/projectList.pro");
+              else response.sendRedirect(request.getParameter("uri"));
         } else {
 
-            request.setAttribute("errorInfo", "WRONG USER OR PASSWORD");
+            request.setAttribute("errorInfo", "wrong username or password");
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
     } catch (Throwable exc) {

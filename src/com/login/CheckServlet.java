@@ -15,44 +15,37 @@ public class CheckServlet extends HttpServlet {
      */
     public CheckServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            ///<Kamil>
-            ///tu daj wywolanie metody check(request,response);
-            ///</Kamil>
-            
-           // System.out.println("In Check Servlet");
-           // HttpSession session = request.getSession(true);
+            check(request, response);
+            // System.out.println("In Check Servlet");
+            // HttpSession session = request.getSession(true);
             // session.setAttribute("currentSessionUser", user);
-           response.sendRedirect("/log");
-           // request.setAttribute("err", "");
-          //  request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-
+               response.sendRedirect("/log");
+            // request.setAttribute("err", "");
+            //  request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } catch (Throwable exc) {
             System.out.println(exc);
-
         }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        ///<Kamil>
-        ///tu daj wywolanie metody check(request,response);
-        ///</Kamil>
+        check(request, response);
 
+    }
 
+    private void check(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        String uri = request.getRequestURI().toString();
+//        if (uri.length()>3 ){
+//                HttpSession session = request.getSession(false);
+//        if (session == null || session.getAttribute("currentSessionUser") == null) {
+//            request.setAttribute(uri, uri);
+//            response.sendRedirect("/log");
+//        }
+ //   }
 }
-        ///<Kamil>
-        ///private void check((HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ///         
-        ///         1.Pobieram url wpisany przez usera;
-        ///         2. Sprawdzam czy zalogowany 
-        ///         3. Jak tak to przekierowuje na pobrana komende
-        ///         4.Jak nie to zapamietuje komende i na login z nim.
-        ///         5. sie zaloguje to zamiast na home poleci tam kaj chcial.
-        ///}
-        ///</Kamil>
+
 }
 

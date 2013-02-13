@@ -3,25 +3,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl">
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
 <body>
 <div>
     <h1 style="text-align:center;">Task list</h1>
-
-    <h2 style="text-align:center;">Hello ${currentSessionUser.username}</h2>
-    <h2 style="text-align:center;">Project: ${projectName}</h2>
-    <h3 style="text-align:center;">Wind of change - edit some project.</h3>
+    <h4 style="text-align:center;">Hello ${currentSessionUser.username}, Edit: ${project.name}</h4>
 </div>
 <div>
     <jsp:include page="../logout.jsp"/>
 </div>
 <div>
-    <input type="submit" value="Go back to projects" ONCLICK="window.location.href='/projectList.pro'"/>
+    <input class="btn" type="submit" value="Go back to projects" ONCLICK="window.location.href='/projectList.pro'"/>
 </div>
+<div style="width: 50%; margin: 0 auto;">
 <div>
     <c:if test='${project != null}'>
     <form name="actionForm2" action="projectEditSave.pro" onsubmit="return validateForm()" method="POST">
         <input type="hidden" name="idp" value="${project.idp}">
-        <table>
+        <table class="table">
             <tr>
                 <td>Project name:</td>
                 <td><input type="text" name="name" value="${project.name}"><br/></td>
@@ -32,16 +31,21 @@
                 <td><input type="text" name="description" value="${project.description}"><br/></td>
                 <td id="errorDesc"  style="display:none; color: #FF00FF" >wrong input format</td>
             </tr>
+            <tr>
+                <td></td>
+                <td><input class="btn btn-info" type="submit" value="Update"/></td>
+            </tr>
         </table>
-        <input type="submit" value="Update"/>
+
     </form>
     <div>
-        <table>
+        <table class="table" >
             <tr>
                 <th>Id</th>
                 <th>Nick</th>
                 <th>Name</th>
                 <th>Surname</th>
+                <th></th>
             </tr>
             <c:forEach items='${projectUserList}' var='user'>
                 <tr>
@@ -49,7 +53,7 @@
                     <td>${user.username}</td>
                     <td>${user.firstName}</td>
                     <td>${user.lastName}</td>
-                    <td><input type="submit" value="remove"
+                    <td><input class="btn btn-warning" type="submit" value="remove"
                                ONCLICK="window.location.href='projectRemoveUser.pro?idu=${user.idu}&idp=${project.idp}'"/>
                     </td>
                 </tr>
@@ -66,7 +70,7 @@
                         <td>
                             <input type="hidden" name="idp" value="${project.idp}">
                             <input type="hidden" name="idu" value="${user.idu}">
-                            <input type="submit" value="add">
+                            <input class="btn btn-success" type="submit" value="add">
 
                         </td>
                     </tr>
@@ -77,6 +81,7 @@
 
 
     </c:if>
+</div>
 </div>
 </body>
 <script>
