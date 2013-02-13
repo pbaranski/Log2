@@ -33,7 +33,7 @@ public class MyControllerProject extends HttpServlet {
 		HttpServletResponse response) throws IOException, ServletException {
 
          HttpSession session = request.getSession(false);
-        if(session == null || session.getAttribute("currentSessionUser")==null)response.sendRedirect("/login.jsp");
+        if(session == null || session.getAttribute("currentSessionUser")==null)response.sendRedirect("/WEB-INF/login.jsp");
         else{
             LoginBean user = (LoginBean) session.getAttribute("currentSessionUser");
 
