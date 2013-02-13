@@ -27,8 +27,8 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.setAttribute("errorInfo", " ");
-        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+//        request.setAttribute("errorInfo", " ");
+//        request.getRequestDispatcher("/WEB-INF/wrong.log").forward(request, response);
     }
 
 

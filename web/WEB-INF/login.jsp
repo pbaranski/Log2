@@ -6,8 +6,9 @@
 
 <html>
 <head>
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
+    <%--<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet" type="text/css">--%>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
     <title>Login Page</title> </head>
 <body>
 
@@ -20,10 +21,9 @@
 <c:when test='${not empty currentSessionUser}'>
 
     <div>
-        Witaj ${showLogout}
-        Wyloguj się albo pocinaj do listy
+        <p class="text-info">Witaj ${showLogout}</p>
         <div>
-            <input type="submit" value="Go back to projects" ONCLICK="window.location.href='/projectList.pro'"/>
+            <input class="btn" type="submit" value="Go back to projects" ONCLICK="window.location.href='/projectList.pro'"/>
         </div>
         <div>
             <jsp:include page="../logout.jsp" />
@@ -35,7 +35,7 @@
 
     <c:otherwise>
 
-        <form name="actionForm" action="/log" onsubmit="return validateForm()"  method ="POST">
+        <form name="actionForm" action="start.log" onsubmit="return validateForm()"  method ="POST">
             <table>
                 <tr>
                     <td><input  type="text" name="uname" placeholder="Login"/> </td>

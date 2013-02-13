@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
-    <servlet>
-        <display-name>com.login.CheckServlet</display-name>
-        <servlet-name>CheckServlet</servlet-name>
-        <servlet-class>com.login.CheckServlet</servlet-class>
-    </servlet>
+    <!--<servlet>-->
+        <!--<display-name>com.login.CheckServlet</display-name>-->
+        <!--<servlet-name>CheckServlet</servlet-name>-->
+        <!--<servlet-class>com.login.CheckServlet</servlet-class>-->
+    <!--</servlet>-->
     <servlet>
         <display-name>com.login.LoginServlet</display-name>
         <servlet-name>LoginServlet</servlet-name>
@@ -31,14 +31,14 @@
         <servlet-class>com.login.Logout</servlet-class>
     </servlet>
 
-    <servlet-mapping>
-    <servlet-name>CheckServlet</servlet-name>
-    <url-pattern>/</url-pattern>
-</servlet-mapping>
+    <!--<servlet-mapping>-->
+    <!--<servlet-name>CheckServlet</servlet-name>-->
+    <!--<url-pattern>/</url-pattern>-->
+<!--</servlet-mapping>-->
 
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/log</url-pattern>
+        <url-pattern>*.log</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Og</servlet-name>
@@ -58,7 +58,7 @@
 </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/error5.jsp</location>
+        <location>/error.jsp</location>
     </error-page>
 
 </web-app>
