@@ -2,8 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <title>Logout</title>
+    <%--<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet" type="text/css">--%>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+        <title>Logout</title>
 </head>
 <body>
 <c:if test='${sessionScope != null}'>
