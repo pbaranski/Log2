@@ -6,19 +6,15 @@
 <body>
 <div>
     <h1 style="text-align:center;">Task list</h1>
-
-    <h2 style="text-align:center;">Hello ${currentSessionUser.username}</h2>
-
-    <h2 style="text-align:center;">Project: ${projectName}</h2>
-
-    <h3 style="text-align:center;">Wind of change - edit some task.</h3>
+    <h4 style="text-align:center;">Hello ${currentSessionUser.username} , Project: ${projectName}, Edit task: ${task.name}</h4>
 </div>
 <div>
     <jsp:include page="../logout.jsp"/>
 </div>
 <div>
-    <input type="submit" value="Go back to TasList" ONCLICK="window.location.href='/taskList.og'"/>
+    <input class="btn" type="submit" value="Go back to TasList" ONCLICK="window.location.href='/taskList.og'"/>
 </div>
+<div style="width: 50%; margin: 0 auto;">
 <c:if test='${isAdmin != null}'>
 
 <form name="actionForm4" action="taskEditSave.og" onsubmit="return validateForm3(true)">
@@ -26,7 +22,7 @@
     <c:if test='${isAdmin == null}'>
     <form name="actionForm4" action="taskEditSave.og" onsubmit="return validateForm3(false)">
         </c:if>
-        <table>
+        <table class="table">
             <tr>
 
 
@@ -74,12 +70,12 @@
             <tr>
                 <td>
                     </c:if>
-                    <input type="submit" value="Submit"/>
+                    <input class="btn btn-info" type="submit" value="Submit"/>
             </tr>
         </table>
     </form>
 </form>
-
+</div>
 </body>
 <script>
     function validateForm3(admin) {
