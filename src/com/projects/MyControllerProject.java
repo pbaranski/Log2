@@ -37,7 +37,7 @@ public class MyControllerProject extends HttpServlet {
         else{
             LoginBean user = (LoginBean) session.getAttribute("currentSessionUser");
 
-        if(!DBConnect.isConnected()){
+        if(!DBConnect.isConnected()){ // nie musisz sprawdzać DBCnnect.getConnection(); sam sprawdza i zwraca dobry obiekt!
 			DBConnect.connect();
 		}
 
