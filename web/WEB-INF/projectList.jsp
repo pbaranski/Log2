@@ -12,7 +12,9 @@
 <div>
     <jsp:include page="../logout.jsp"/>
 </div>
-
+<div>
+    <input class="btn" type="submit" value="Manage users" ONCLICK="window.location.href='userList.user'"/>
+</div>
 <div style="width: 50%; margin: 0 auto;">
     <div>
         <c:if test='${isAdmin != null}'>
