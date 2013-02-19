@@ -94,7 +94,9 @@ public class UserDao {
             pstmt.setString(4, userAdd.getPassword());
             pstmt.setBoolean(5, userAdd.isAdmin());
 
+
             pstmt.executeUpdate();
+
         } catch (SQLException ec) {
             ec.printStackTrace();
         }

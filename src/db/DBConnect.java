@@ -11,7 +11,7 @@ public class DBConnect {
 //	final static String location = "jdbc:mysql://127.10.200.129/tasak";
     final static String login = "root";
 	final static String password = "";
-	final static String location = "jdbc:mysql://127.0.0.1/tasak";
+	final static String location = "jdbc:mysql://127.0.0.1/tasak?useUnicode=yes&characterEncoding=UTF-8";
 
 	public static Connection getConnection() {
 		if(!isConnected()) connect();
