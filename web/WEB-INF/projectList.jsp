@@ -45,7 +45,7 @@
                 <c:if test='${isAdmin != null}'>
                     <td><input class="btn btn-warning" type="submit" value="edit" ONCLICK="window.location.href='projectEdit.pro?idp=${project.idp}'"/></td>
                     <td>
-                        <form name="lol2${project.idp}" action="projectDel.pro">
+                        <form accept-charset="ISO-8859-15" name="lol2${project.idp}" action="projectDel.pro" method="post">
                             <input type="hidden" name="idp" value="${project.idp}">
                             <td><input class="btn btn-danger" type="submit" value="delete" ONCLICK="return validateForm(${project.idp})"/></td>
                         </form>

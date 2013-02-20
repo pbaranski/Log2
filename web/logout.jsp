@@ -8,7 +8,7 @@
 </head>
 <body>
 <c:if test='${sessionScope != null}'>
-    <form name="actionForm" action="go.out" method ="GET">
+    <form accept-charset="ISO-8859-15" name="actionForm" action="go.out" method ="GET">
         <input class="btn-primary" type="submit" value="Logout">
     </form>
 </c:if>

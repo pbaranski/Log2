@@ -35,7 +35,7 @@
       <foreign-key name="task_ibfk_2" columns="user_idu" ref-table="users" ref-schema="" ref-catalog="tasak" ref-columns="idu" update-rule="3" delete-rule="3" deferrability="2" />
     </table>
     <table name="users" schema="" catalog="tasak" type="TABLE">
-      <column name="idu" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" def="MA==" />
+      <column name="idu" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
       <column name="firstName" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
       <column name="lastName" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
       <column name="uname" sqlType="VARCHAR" length="8" precision="0" nullable="false" jdbcType="12" />

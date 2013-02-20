@@ -48,7 +48,7 @@ public class MyControllerUser extends HttpServlet {
             }
 
             if (actionName.equals("addUser")){
-               request.setAttribute("isAdmin", user.isAdmin());
+                request.setAttribute("isAdmin", user.isAdmin());
                 destinationPage = "/WEB-INF/userInsert.jsp";
             }
 
@@ -62,6 +62,30 @@ public class MyControllerUser extends HttpServlet {
                 userDao.saveAddUser(userAdd);
                 refresh_view=true;
             }
+
+            if (actionName.contentEquals("userEdit")){
+                int idu = Integer.parseInt(request.getParameter("idu"));
+                LoginBean userEdit = userDao.getUser(idu);
+               request.setAttribute("user", userEdit);
+               request.setAttribute("isAdmin", user.isAdmin());
+                destinationPage = "/WEB-INF/userEdit.jsp";
+            }
+
+            if (actionName.equals("userEditSave")) {
+                LoginBean userEdit = new LoginBean();
+
+                userEdit.setFirstName(request.getParameter("firstName"));
+                userEdit.setLastName(request.getParameter("lastName"));
+                userEdit.setPassword(request.getParameter("oldPassword"));
+                String newPassword = request.getParameter("newPassword");
+
+                 userEdit.setIsAdmin(request.getParameter("isAdmin").equals("true"));
+                 userEdit.setUserName(request.getParameter("username"));
+
+            //    userDao.updateUser(userEdit);
+                refresh_view = true;
+            }
+
 
             if (actionName.equals("userList") || refresh_view) {
                 List<LoginBean> userList = userDao.getUserList(user.getIdu(), user.isAdmin());

@@ -17,7 +17,7 @@
 <div style="width: 50%; margin: 0 auto;">
 <div>
     <c:if test='${isAdmin == true}'>
-    <form name="actionForm7" action="saveAddUser.user" onsubmit="return validateForm3(true)" method="POST">
+    <form accept-charset="ISO-8859-15" name="actionForm7" action="saveAddUser.user" onsubmit="return validateForm3(true)" method="POST">
             <table class="table">
                 <tr>
                     <th>Details</th>
@@ -82,7 +82,7 @@
     function validateForm3(admin) {
         var admin = admin;
         var result = true;
-        var letterNumber = /^[0-9a-zA-Z. ]+$/;
+        var letterNumber = /^[0-9a-zA-Z ęśążółćżń.,. ]+$/;
         var numbers = /^[0-9]+$/;
         var numbersD = /^[0-9.]+$/;
         var firstName = document.forms["actionForm7"]["userFirstName"].value;

@@ -17,10 +17,10 @@
 <div style="width: 50%; margin: 0 auto;">
 <c:if test='${isAdmin != null}'>
 
-<form name="actionForm4" action="taskEditSave.og" onsubmit="return validateForm3(true)">
+<form accept-charset="ISO-8859-15" name="actionForm4" action="taskEditSave.og" onsubmit="return validateForm3(true)" method="post">
     </c:if>
     <c:if test='${isAdmin == null}'>
-    <form name="actionForm4" action="taskEditSave.og" onsubmit="return validateForm3(false)">
+    <form accept-charset="ISO-8859-15" name="actionForm4" action="taskEditSave.og" onsubmit="return validateForm3(false)" method="post">
         </c:if>
         <table class="table">
             <tr>
@@ -80,7 +80,7 @@
 <script>
     function validateForm3(admin) {
         var result = true;
-        var letterNumber = /^[0-9a-zA-Z. ]+$/;
+        var letterNumber = /^[0-9a-zA-Z ęśążółćżń.,. ]+$/;
         var numbers = /^[0-9]+$/;
         var numbersD = /^[0-9.]+$/;
         var name = document.forms["actionForm4"]["name"].value;

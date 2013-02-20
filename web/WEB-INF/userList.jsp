@@ -37,10 +37,11 @@
                     <td>${user.username}</td>
                     <td>${user.firstName}</td>
                     <td>${user.lastName}</td>
+                    <td><input class="btn btn-warning" type="submit" value="edit" ONCLICK="window.location.href='userEdit.user?idu=${user.idu}'"/></td>
                     <c:if test='${isAdmin == true}'>
-                        <td><input class="btn btn-warning" type="submit" value="edit" ONCLICK="window.location.href='userEdit.user?iup=${user.idu}'"/></td>
+
                         <td>
-                            <form name="lol2${user.idu}" action="userDel.user">
+                            <form accept-charset="ISO-8859-15" name="lol2${user.idu}" action="userDel.user">
                                 <input type="hidden" name="idu" value="${user.idu}">
                                 <td><input class="btn btn-danger" type="submit" value="delete" ONCLICK="return validateForm(${user.idu})"/></td>
                             </form>

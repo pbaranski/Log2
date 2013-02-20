@@ -101,4 +101,23 @@ public class UserDao {
             ec.printStackTrace();
         }
     }
+
+    public LoginBean getUser(int idu) {
+        LoginBean user = new LoginBean();
+        try{
+           PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE users.idu = ?");
+            pstmt.setInt(1, idu);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                user.setLastName(rs.getString("lastName"));
+                user.setIdu(rs.getInt("idu"));
+                user.setUserName(rs.getString("uname"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setIsAdmin(rs.getBoolean("isAdmin"));
+            }
+        } catch (SQLException ec){
+            ec.printStackTrace();
+        }
+        return user;
+    }
 }
