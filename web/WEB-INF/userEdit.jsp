@@ -17,7 +17,7 @@
 <div style="width: 50%; margin: 0 auto;">
 
     <c:if test='${user != null}'>
-    <form accept-charset="ISO-8859-15" name="actionForm2" action="projectEditSave.pro" onsubmit="return validateForm()" method="POST" method="post">
+    <form accept-charset="ISO-8859-15" name="actionForm2" action="userEditSave.user" onsubmit="return validateForm()" method="POST" method="post">
         <input type="hidden" name="idu" value="${user.idu}">
         <table class="table">
             <tr>

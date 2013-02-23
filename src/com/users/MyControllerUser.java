@@ -73,16 +73,18 @@ public class MyControllerUser extends HttpServlet {
 
             if (actionName.equals("userEditSave")) {
                 LoginBean userEdit = new LoginBean();
-
+                 userEdit.setIdu(Integer.parseInt(request.getParameter("idu")));
                 userEdit.setFirstName(request.getParameter("firstName"));
                 userEdit.setLastName(request.getParameter("lastName"));
                 userEdit.setPassword(request.getParameter("oldPassword"));
                 String newPassword = request.getParameter("newPassword");
 
-                 userEdit.setIsAdmin(request.getParameter("isAdmin").equals("true"));
-                 userEdit.setUserName(request.getParameter("username"));
+                boolean adm = Boolean.getBoolean(request.getParameter("isAdmin"));
+                System.out.println(adm);
+                userEdit.setIsAdmin(adm);
+                 userEdit.setUserName(request.getParameter("uname"));
 
-            //    userDao.updateUser(userEdit);
+               userDao.updateUser(userEdit);
                 refresh_view = true;
             }
 

@@ -120,4 +120,19 @@ public class UserDao {
         }
         return user;
     }
+
+    public void updateUser(LoginBean userEdit) {
+     try {
+         PreparedStatement pstmt = con.prepareStatement("update users set uname=?, firstName = ?, lastName = ?, password = ?, isAdmin=? where idu=?");
+        pstmt.setString(1, userEdit.getUsername());
+        pstmt.setString(2, userEdit.getFirstName());
+        pstmt.setString(3, userEdit.getLastName());
+        pstmt.setString(4, userEdit.getPassword());
+        pstmt.setBoolean(5, userEdit.getIsAdmin());
+        pstmt.setInt(6, userEdit.getIdu());
+        pstmt.executeUpdate();
+    } catch (SQLException ec) {
+        ec.printStackTrace();
+    }
+    }
 }
