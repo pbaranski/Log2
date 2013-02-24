@@ -5,14 +5,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
 <div>
-    <h1 style="text-align:center;">Task list</h1>
+    <h1 style="text-align:center;">Task Manager</h1>
     <h4 style="text-align:center;">Hello ${currentSessionUser.username} , Project: ${projectName}, Edit task: ${task.name}</h4>
 </div>
 <div>
     <jsp:include page="../logout.jsp"/>
 </div>
 <div>
-    <input class="btn" type="submit" value="Go back to TasList" ONCLICK="window.location.href='/taskList.og'"/>
+    <input class="btn" type="submit" value="Go back to Task Manager" ONCLICK="window.location.href='/taskList.og'"/>
 </div>
 <div style="width: 50%; margin: 0 auto;">
 <c:if test='${isAdmin != null}'>

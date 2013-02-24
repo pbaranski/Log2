@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
 <div>
-    <h1 style="text-align:center;">Task list</h1>
+    <h1 style="text-align:center;">Task Manager</h1>
     <h4 style="text-align:center;">Hello ${currentSessionUser.username}, Edit: ${user.username}</h4>
 </div>
 <div>
@@ -32,8 +32,9 @@
             </tr>
             <tr>
                 <td>Old password:</td>
-                <td><input type="text" name="oldPassword"><br/></td>
+                <td><input type="text" name="oldPassword" ><br/></td>
                 <td id="errorPassword"  style="display:none; color: #FF00FF" >wrong input format</td>
+                <td id="errorPassword2" style="color: red">${errorMsg}</td>
             </tr>
             <tr>
                 <td>New password:</td>

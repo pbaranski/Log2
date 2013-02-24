@@ -37,17 +37,17 @@ public class UserDao {
         return userList;
     }
 
-    public List distinctProjectsUsers(int idUser, int idAdmin){
+    public List distinctProjectsUsers(int idUser, int idAdmin) {
         List<Integer> projects = new ArrayList<>();
         try (
                 PreparedStatement pstmt = con.prepareStatement("SELECT tasak.users_has_projects.users_idu, tasak.users_has_projects.projects_idp FROM tasak.users_has_projects WHERE tasak.users_has_projects.users_idu = ? AND tasak.users_has_projects.projects_idp NOT IN (SELECT tasak.users_has_projects.projects_idp FROM tasak.users_has_projects WHERE tasak.users_has_projects.users_idu = ?)")) {
             pstmt.setInt(1, idUser);
             pstmt.setInt(2, idAdmin);
             ResultSet rs = pstmt.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 projects.add(rs.getInt("projects_idp"));
             }
-        } catch (SQLException ec){
+        } catch (SQLException ec) {
             ec.printStackTrace();
         }
         System.out.println(projects);
@@ -58,7 +58,7 @@ public class UserDao {
         try (PreparedStatement pstmt = con.prepareStatement("DELETE FROM tasak.users_has_projects WHERE tasak.users_has_projects.users_idu = ?")) {
             pstmt.setInt(1, idUser);
             pstmt.executeUpdate();
-        } catch (SQLException ec){
+        } catch (SQLException ec) {
             ec.printStackTrace();
         }
     }
@@ -68,18 +68,18 @@ public class UserDao {
             pstmt.setInt(1, idUser);
             pstmt.setInt(2, idAdmin);
             pstmt.executeUpdate();
-        } catch (SQLException ec){
+        } catch (SQLException ec) {
             ec.printStackTrace();
         }
     }
 
-    public void deleteUser(int idUser, int isAdmin){
+    public void deleteUser(int idUser, int isAdmin) {
         updateUserTasks(idUser, isAdmin);
         deleteUserProjects(idUser);
         try (PreparedStatement pstmt = con.prepareStatement("DELETE FROM tasak.users WHERE tasak.users.idu = ?")) {
             pstmt.setInt(1, idUser);
             pstmt.executeUpdate();
-        } catch (SQLException ec){
+        } catch (SQLException ec) {
             ec.printStackTrace();
         }
     }
@@ -104,35 +104,50 @@ public class UserDao {
 
     public LoginBean getUser(int idu) {
         LoginBean user = new LoginBean();
-        try{
-           PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE users.idu = ?");
+        try {
+            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM users WHERE users.idu = ?");
             pstmt.setInt(1, idu);
             ResultSet rs = pstmt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 user.setLastName(rs.getString("lastName"));
                 user.setIdu(rs.getInt("idu"));
                 user.setUserName(rs.getString("uname"));
                 user.setFirstName(rs.getString("firstName"));
                 user.setIsAdmin(rs.getBoolean("isAdmin"));
             }
-        } catch (SQLException ec){
+        } catch (SQLException ec) {
             ec.printStackTrace();
         }
         return user;
     }
 
-    public void updateUser(LoginBean userEdit) {
-     try {
-         PreparedStatement pstmt = con.prepareStatement("update users set uname=?, firstName = ?, lastName = ?, password = ?, isAdmin=? where idu=?");
-        pstmt.setString(1, userEdit.getUsername());
-        pstmt.setString(2, userEdit.getFirstName());
-        pstmt.setString(3, userEdit.getLastName());
-        pstmt.setString(4, userEdit.getPassword());
-        pstmt.setBoolean(5, userEdit.getIsAdmin());
-        pstmt.setInt(6, userEdit.getIdu());
-        pstmt.executeUpdate();
-    } catch (SQLException ec) {
-        ec.printStackTrace();
+    public boolean comparePassword(String pass, int idu) {
+        try {
+            PreparedStatement pstmt = con.prepareStatement("SELECT users.password FROM users where users.idu = ? AND users.password = ?");
+            pstmt.setInt(1, idu);
+            pstmt.setString(2, pass);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
+
+    public void updateUser(LoginBean userEdit) {
+        try {
+            PreparedStatement pstmt = con.prepareStatement("update users set uname=?, firstName = ?, lastName = ?, password = ?, isAdmin=? where idu=?");
+            pstmt.setString(1, userEdit.getUsername());
+            pstmt.setString(2, userEdit.getFirstName());
+            pstmt.setString(3, userEdit.getLastName());
+            pstmt.setString(4, userEdit.getPassword());
+            pstmt.setBoolean(5, userEdit.getIsAdmin());
+            pstmt.setInt(6, userEdit.getIdu());
+            pstmt.executeUpdate();
+        } catch (SQLException ec) {
+            ec.printStackTrace();
+        }
     }
 }

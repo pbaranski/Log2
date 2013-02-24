@@ -47,12 +47,12 @@ public class MyControllerUser extends HttpServlet {
                 refresh_view = true;
             }
 
-            if (actionName.equals("addUser")){
+            if (actionName.equals("addUser")) {
                 request.setAttribute("isAdmin", user.isAdmin());
                 destinationPage = "/WEB-INF/userInsert.jsp";
             }
 
-            if (actionName.contentEquals("saveAddUser")){
+            if (actionName.contentEquals("saveAddUser")) {
                 LoginBean userAdd = new LoginBean();
                 userAdd.setUserName(request.getParameter("userName"));
                 userAdd.setLastName(request.getParameter("userLastName"));
@@ -60,32 +60,38 @@ public class MyControllerUser extends HttpServlet {
                 userAdd.setPassword(request.getParameter("userPassword"));
                 userAdd.setIsAdmin(request.getParameter("userIsAdmin").equals("true"));
                 userDao.saveAddUser(userAdd);
-                refresh_view=true;
+                refresh_view = true;
             }
 
-            if (actionName.contentEquals("userEdit")){
+            if (actionName.contentEquals("userEdit")) {
                 int idu = Integer.parseInt(request.getParameter("idu"));
                 LoginBean userEdit = userDao.getUser(idu);
-               request.setAttribute("user", userEdit);
-               request.setAttribute("isAdmin", user.isAdmin());
+                request.setAttribute("user", userEdit);
+                request.setAttribute("isAdmin", user.isAdmin());
                 destinationPage = "/WEB-INF/userEdit.jsp";
             }
 
             if (actionName.equals("userEditSave")) {
                 LoginBean userEdit = new LoginBean();
-                 userEdit.setIdu(Integer.parseInt(request.getParameter("idu")));
+                userEdit.setIdu(Integer.parseInt(request.getParameter("idu")));
                 userEdit.setFirstName(request.getParameter("firstName"));
                 userEdit.setLastName(request.getParameter("lastName"));
-                userEdit.setPassword(request.getParameter("oldPassword"));
-                String newPassword = request.getParameter("newPassword");
+                userEdit.setUserName(request.getParameter("uname"));
+                String oldPassword = request.getParameter("oldPassword");
 
-                boolean adm = Boolean.getBoolean(request.getParameter("isAdmin"));
-                System.out.println(adm);
-                userEdit.setIsAdmin(adm);
-                 userEdit.setUserName(request.getParameter("uname"));
-
-               userDao.updateUser(userEdit);
-                refresh_view = true;
+                if (userDao.comparePassword(oldPassword, userEdit.getIdu())){
+                    boolean adm = Boolean.getBoolean(request.getParameter("isAdmin"));
+                    System.out.println(adm);
+                    userEdit.setIsAdmin(adm);
+                    userEdit.setPassword(request.getParameter("newPassword"));
+                    userDao.updateUser(userEdit);
+                    refresh_view = true;
+                } else {
+                    request.setAttribute("user", userEdit);
+                    request.setAttribute("isAdmin", user.isAdmin());
+                    request.setAttribute("errorMsg", "Wrong password");
+                    destinationPage = "/WEB-INF/userEdit.jsp";
+                }
             }
 
 

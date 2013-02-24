@@ -13,7 +13,7 @@
 <body>
 
 
-<h1 style="text-align:center;">Task list</h1>
+<h1 style="text-align:center;">Task Manager</h1>
 
 <div style="width: 50%; margin: 0 auto;">
 <c:choose>

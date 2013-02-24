@@ -4,7 +4,7 @@
 <head>
     <%--<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet" type="text/css">--%>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
-        <title>Logout</title>
+        <title>Task manager</title>
 </head>
 <body>
 <c:if test='${sessionScope != null}'>

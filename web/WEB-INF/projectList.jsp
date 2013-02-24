@@ -6,7 +6,7 @@
 
 <body>
 <div>
-    <h1 style="text-align:center;">Task list</h1> <h4 style="text-align:center;">Hello ${currentSessionUser.username}</h4>
+    <h1 style="text-align:center;">Task Manager</h1> <h4 style="text-align:center;">Hello ${currentSessionUser.username}</h4>
 </div>
 
 <div>
@@ -19,7 +19,7 @@
     <div>
         <c:if test='${isAdmin != null}'>
             <input class="btn" type="submit" value="Add new project"
-                   ONCLICK="window.location.href='projectInsert.pro?idp=${project.idp}'"/>
+                   ONCLICK="window.location.href='projectInsert.pro?idp=${project.idp}'"/><br/>
         </c:if>
     </div>
     <div>

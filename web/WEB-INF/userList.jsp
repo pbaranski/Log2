@@ -17,7 +17,7 @@
 <div style="width: 50%; margin: 0 auto;">
     <c:if test='${isAdmin == true}'>
     <div>
-        <input class="btn" type="submit" value="Add user" ONCLICK="window.location.href='/addUser.user'"/>
+        <input class="btn" type="submit" value="Add user" ONCLICK="window.location.href='/addUser.user'"/><br/>
     </div>
     </c:if>
     <c:if test='${userList != null}'>
