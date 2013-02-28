@@ -17,8 +17,15 @@ public class UserDao {
     public List<LoginBean> getUserList(int idu, boolean isAdmin) {
         List<LoginBean> userList = new ArrayList<>();
 
+
         try {
-            PreparedStatement pstmt = con.prepareStatement("SELECT * from tasak.users");
+            PreparedStatement pstmt;
+
+           if(isAdmin)pstmt = con.prepareStatement("SELECT * from tasak.users");
+            else{
+               pstmt = con.prepareStatement("SELECT * from tasak.users WHERE tasak.users.idu = ?");
+               pstmt.setInt(1, idu);
+           }
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -65,16 +72,16 @@ public class UserDao {
 
     public void updateUserTasks(int idUser, int idAdmin) {
         try (PreparedStatement pstmt = con.prepareStatement("UPDATE tasak.task SET tasak.task.user_idu = ? WHERE tasak.task.user_idu = ?")) {
-            pstmt.setInt(1, idUser);
-            pstmt.setInt(2, idAdmin);
+            pstmt.setInt(2, idUser);
+            pstmt.setInt(1, idAdmin);
             pstmt.executeUpdate();
         } catch (SQLException ec) {
             ec.printStackTrace();
         }
     }
 
-    public void deleteUser(int idUser, int isAdmin) {
-        updateUserTasks(idUser, isAdmin);
+    public void deleteUser(int idUser, int idAdmin) {
+        updateUserTasks(idUser, idAdmin);
         deleteUserProjects(idUser);
         try (PreparedStatement pstmt = con.prepareStatement("DELETE FROM tasak.users WHERE tasak.users.idu = ?")) {
             pstmt.setInt(1, idUser);
