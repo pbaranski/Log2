@@ -43,7 +43,6 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
         if (user.isValid()) {
             HttpSession session = request.getSession(true);
             session.setAttribute("currentSessionUser", user);
-            user.setLastName(response.toString());
             if(request.getParameter("uri")==null)response.sendRedirect("/projectList.pro");
               else response.sendRedirect(request.getParameter("uri"));
         } else {

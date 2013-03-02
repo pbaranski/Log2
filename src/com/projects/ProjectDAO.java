@@ -217,7 +217,7 @@ public class ProjectDAO {
         } catch (SQLException ec) {
             ec.printStackTrace();
         }
-        return projectUserList;  //To change body of created methods use File | Settings | File Templates.
+        return projectUserList;
     }
 
     public void removeUser(int idu, int idp) {

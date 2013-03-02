@@ -13,7 +13,7 @@
 <body>
 
 
-<h1 style="text-align:center;">Task list</h1>
+<h1 style="text-align:center;">Task Manager</h1>
 
 <div style="width: 50%; margin: 0 auto;">
 <c:choose>
@@ -35,7 +35,7 @@
 
     <c:otherwise>
 
-        <form name="actionForm" action="start.log" onsubmit="return validateForm()"  method ="POST">
+        <form accept-charset="ISO-8859-15" name="actionForm" action="start.log" onsubmit="return validateForm()"  method ="POST">
             <table>
                 <tr>
                     <td><input  type="text" name="uname" placeholder="Login"/> </td>

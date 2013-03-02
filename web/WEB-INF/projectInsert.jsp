@@ -6,7 +6,7 @@
 
 <body>
 <div>
-    <h1 style="text-align:center;">Task list</h1>
+    <h1 style="text-align:center;">Task Manager</h1>
     <h4 style="text-align:center;">Hello ${currentSessionUser.username}, Start new Project</h4>
 </div>
 <div>
@@ -18,7 +18,7 @@
 <div style="width: 50%; margin: 0 auto;">
     <div>
 
-        <form name="actionForm3" action="projectInsertSave.pro" onsubmit="return validateForm()">
+        <form accept-charset="ISO-8859-15" name="actionForm3" action="projectInsertSave.pro" onsubmit="return validateForm()" method="post">
             <table class="table">
                 <tr>
                     <td>Name:</td>
@@ -77,7 +77,7 @@
 <script>
     function validateForm() {
         var result = true;
-        var letterNumber = /^[0-9a-zA-Z. ]+$/;
+        var letterNumber = /^[0-9a-zA-Z ęśążółćżń.,. ]+$/;
         var numbers = /^[0-9]+$/;
         var name = document.forms["actionForm3"]["name"].value;
         var desc = document.forms["actionForm3"]["description"].value;

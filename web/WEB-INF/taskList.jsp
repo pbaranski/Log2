@@ -6,7 +6,7 @@
 <body>
 
 <div>
-    <h1 style="text-align:center;">Task list</h1>
+    <h1 style="text-align:center;">Task Manager</h1>
     <h4 style="text-align:center;">Hello ${currentSessionUser.username} , Project: ${projectName}</h4>
 </div>
 <div>
@@ -18,9 +18,10 @@
 <div style="width: 50%; margin: 0 auto;">
     <div>
         <input class="btn" type="submit" value="Add new task"
-               ONCLICK="window.location.href='taskInsert.og?idp=${idp}&idt=${task.idt}'"/>
+               ONCLICK="window.location.href='taskInsert.og?idp=${idp}&idt=${task.idt}'"/><br/>
     </div>
     <div>
+        </br>
         <table class="table table-striped">
             <tr>
                 <th>Project</th>

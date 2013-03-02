@@ -31,13 +31,13 @@ public class MyControllerTask extends HttpServlet {
                                 HttpServletResponse response) throws IOException, ServletException {
 
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("currentSessionUser") == null) response.sendRedirect("/WEB-INF/login.jsp");
+        if (session == null || session.getAttribute("currentSessionUser") == null) response.sendRedirect("/");
         else {
             LoginBean user = (LoginBean) session.getAttribute("currentSessionUser");
 
-            if (!DBConnect.isConnected()) {
+
                 DBConnect.connect();
-            }
+
 
             int idp = 1;
             try {

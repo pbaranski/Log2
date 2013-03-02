@@ -6,22 +6,25 @@
 
 <body>
 <div>
-    <h1 style="text-align:center;">Task list</h1> <h4 style="text-align:center;">Hello ${currentSessionUser.username}</h4>
+    <h1 style="text-align:center;">Task Manager</h1> <h4 style="text-align:center;">Hello ${currentSessionUser.username}</h4>
 </div>
 
 <div>
     <jsp:include page="../logout.jsp"/>
 </div>
-
+<div>
+    <input class="btn" type="submit" value="Manage users" ONCLICK="window.location.href='userList.user'"/>
+</div>
 <div style="width: 50%; margin: 0 auto;">
     <div>
         <c:if test='${isAdmin != null}'>
             <input class="btn" type="submit" value="Add new project"
-                   ONCLICK="window.location.href='projectInsert.pro?idp=${project.idp}'"/>
+                   ONCLICK="window.location.href='projectInsert.pro?idp=${project.idp}'"/><br/>
         </c:if>
     </div>
     <div>
-    <table class="table table-striped">
+        </br>
+        <table class="table table-striped">
         <tr>
             <th>ID</th>
             <th>Name</th>
@@ -43,7 +46,7 @@
                 <c:if test='${isAdmin != null}'>
                     <td><input class="btn btn-warning" type="submit" value="edit" ONCLICK="window.location.href='projectEdit.pro?idp=${project.idp}'"/></td>
                     <td>
-                        <form name="lol2${project.idp}" action="projectDel.pro">
+                        <form accept-charset="ISO-8859-15" name="lol2${project.idp}" action="projectDel.pro" method="post">
                             <input type="hidden" name="idp" value="${project.idp}">
                             <td><input class="btn btn-danger" type="submit" value="delete" ONCLICK="return validateForm(${project.idp})"/></td>
                         </form>

@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
 <div>
-    <h1 style="text-align:center;">Task list</h1>
+    <h1 style="text-align:center;">Task Manager</h1>
     <h4 style="text-align:center;">Hello ${currentSessionUser.username}, Edit: ${project.name}</h4>
 </div>
 <div>
@@ -17,7 +17,7 @@
 <div style="width: 50%; margin: 0 auto;">
 <div>
     <c:if test='${project != null}'>
-    <form name="actionForm2" action="projectEditSave.pro" onsubmit="return validateForm()" method="POST">
+    <form accept-charset="ISO-8859-15" name="actionForm2" action="projectEditSave.pro" onsubmit="return validateForm()" method="POST" method="post">
         <input type="hidden" name="idp" value="${project.idp}">
         <table class="table">
             <tr>
@@ -59,7 +59,7 @@
 
 
             <c:forEach items='${notInProjectUserList}' var='user'>
-                <form action="addUserToProject.pro">
+                <form accept-charset="ISO-8859-15" action="addUserToProject.pro">
                     <tr>
                         <td>${user.idu}</td>
                         <td>${user.username}</td>
@@ -86,7 +86,7 @@
     function validateForm()
     {
         var result = true;
-        var letterNumber = /^[0-9a-zA-Z. ]+$/;
+        var letterNumber = /^[0-9a-zA-Z ęśążółćżń.,. ]+$/;
         var name=document.forms["actionForm2"]["name"].value;
         var desc=document.forms["actionForm2"]["description"].value;
 
