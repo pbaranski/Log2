@@ -17,34 +17,36 @@
 <div style="width: 50%; margin: 0 auto;">
 
     <c:if test='${user != null}'>
-    <form accept-charset="ISO-8859-15" name="actionForm2" action="userEditSave.user" onsubmit="return validateForm()" method="POST" method="post">
+    <form accept-charset="ISO-8859-15" name="actionForm6" action="userEditSave.user"
+          onsubmit="return validateForm6(true)" method="POST" method="post">
         <input type="hidden" name="idu" value="${user.idu}">
         <table class="table">
             <tr>
                 <td>User first name:</td>
                 <td><input type="text" name="firstName" value="${user.firstName}"><br/></td>
-                <td id="errorFirstName"  style="display:none; color: #FF00FF" >wrong input format</td>
+                <td id="errorFirstName" style="display:none; color: #FF00FF">wrong input format</td>
             </tr>
             <tr>
                 <td>User last name:</td>
                 <td><input type="text" name="lastName" value="${user.lastName}"><br/></td>
-                <td id="errorLastName"  style="display:none; color: #FF00FF" >wrong input format</td>
+                <td id="errorLastName" style="display:none; color: #FF00FF">wrong input format</td>
             </tr>
             <tr>
                 <td>Old password:</td>
-                <td><input type="text" name="oldPassword" ><br/></td>
-                <td id="errorPassword"  style="display:none; color: #FF00FF" >wrong input format</td>
+                <td><input type="text" name="oldPassword"><br/></td>
+                <td id="errorPassword" style="display:none; color: #FF00FF">wrong input format</td>
                 <td id="errorPassword2" style="color: red">${errorMsg}</td>
             </tr>
             <tr>
                 <td>New password:</td>
                 <td><input type="text" name="newPassword"><br/></td>
-                <td id="errorNewPassword"  style="display:none; color: #FF00FF" >wrong input format</td>
+                <td id="errorNewPassword" style="display:none; color: #FF00FF">wrong input format</td>
             </tr>
             <tr>
                 <td>Repeat new password:</td>
                 <td><input type="text" name="newPassword2"><br/></td>
-                <td id="errorNewPassword2"  style="display:none; color: #FF00FF" >wrong input format</td>
+                <td id="errorNewPassword2" style="display:none; color: #FF00FF">wrong input format</td>
+                <td id="errorNewPassword3" style="display:none; color: #FF00FF">pasword doesn't match</td>
             </tr>
 
 
@@ -52,15 +54,15 @@
                 <tr>
                     <td>Username:</td>
                     <td><input type="text" name="uname" value="${user.username}"><br/></td>
-                    <td id="errorDesc"  style="display:none; color: #FF00FF" >wrong input format</td>
+                    <td id="errorDesc" style="display:none; color: #FF00FF">wrong input format</td>
                 </tr>
                 <tr>
                     <td>Is Admin:</td>
                     <td>
                         <select name="userIsAdmin">
                             <c:if test='${user.isAdmin==true}'>
-                            <option value="true">true</option>
-                            <option value="false">false</option>
+                                <option value="true">true</option>
+                                <option value="false">false</option>
                             </c:if>
                             <c:if test='${user.isAdmin==false}'>
                                 <option value="true">false</option>
@@ -86,29 +88,59 @@
             </tr>
         </table>
 
-</c:if>
+        </c:if>
 </div>
 </body>
 <script>
-    function validateForm()
-    {
+    function validateForm6(admin) {
         var result = true;
         var letterNumber = /^[0-9a-zA-Z ęśążółćżń.,. ]+$/;
-        var name=document.forms["actionForm2"]["name"].value;
-        var desc=document.forms["actionForm2"]["description"].value;
+        var numbers = /^[0-9]+$/;
+        var numbersD = /^[0-9.]+$/;
+        var firstName = document.forms["actionForm6"]["firstName"].value;
+        var lastName = document.forms["actionForm6"]["lastName"].value;
+        var oldPassword = document.forms["actionForm6"]["oldPassword"].value;
+        var newPassword = document.forms["actionForm6"]["newPassword"].value;
+        var newPassword2 = document.forms["actionForm6"]["newPassword2"].value;
 
-        if (!name.match(letterNumber) || name.length>20 )
-        {
-            document.getElementById('errorName').style.display = "block";
-            result =  false;
-        } else document.getElementById('errorName').style.display = "none";
 
-        if (!desc.match(letterNumber)|| desc.length>120 )
-        {
-            document.getElementById('errorDesc').style.display = "block";
+        if (!firstName.match(letterNumber) || firstName.length > 20) {
+            document.getElementById('errorFirstName').style.display = "block";
             result = false;
-        } else document.getElementById('errorDesc').style.display = "none";
+        } else document.getElementById('errorFirstName').style.display = "none";
 
+        if (!lastName.match(letterNumber) || lastName.length > 120) {
+            document.getElementById('errorLastName').style.display = "block";
+            result = false;
+        } else document.getElementById('errorLastName').style.display = "none";
+
+        if (!oldPassword.match(letterNumber) || oldPassword.length > 20) {
+            document.getElementById('errorOldPassword').style.display = "block";
+            result = false;
+        } else document.getElementById('errorOldPassword').style.display = "none";
+        if (oldPassword === newPassword) {
+
+            if (!newPassword.match(letterNumber) || newPassword.length > 120) {
+                document.getElementById('errorNewPassword').style.display = "block";
+                result = false;
+            } else document.getElementById('errorNewPassword').style.display = "none";
+            if (!newPassword2.match(letterNumber) || newPassword2.length > 120) {
+                document.getElementById('errorNewPassword2').style.display = "block";
+                result = false;
+            } else document.getElementById('errorNewPassword2').style.display = "none";
+        } else {
+            document.getElementById('errorNewPassword3').style.display = "block";
+            result = false;
+        }
+
+        if (admin) {
+            var uname = document.forms["actionForm6"]["uname"].value;
+            if (!uname.match(letterNumber) || uname.length > 5) {
+                document.getElementById('errorUname').style.display = "block";
+                result = false;
+            } else document.getElementById('errorUname').style.display = "none";
+
+        }
         return result;
     }
 </script>
