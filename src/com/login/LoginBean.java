@@ -60,6 +60,10 @@ public class LoginBean {
         valid = newValid;
     }
 
+    public boolean getIsAdmin()
+    {
+        return isAdmin;
+    }
     public boolean isAdmin()
     {
         return isAdmin;

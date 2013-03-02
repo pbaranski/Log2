@@ -16,9 +16,8 @@ public class LoginDAO
         String username = bean.getUsername();
         String password = bean.getPassword();
 
-        if(!DBConnect.isConnected()){
-            DBConnect.connect();
-    }
+
+        DBConnect.connect();
 
         try
         {

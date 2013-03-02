@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
 <div>
-    <h1 style="text-align:center;">Task list</h1>
+    <h1 style="text-align:center;">Task Manager</h1>
 
     <h4 style="text-align:center;">Hello ${currentSessionUser.username} , Project: ${projectName}, New Task</h4>
 
@@ -19,10 +19,10 @@
 <div style="width: 50%; margin: 0 auto;">
 <div>
     <c:if test='${isAdmin != null}'>
-    <form name="actionForm4" action="taskInsertSave.og" onsubmit="return validateForm3(true)">
+    <form accept-charset="ISO-8859-15" name="actionForm4" action="taskInsertSave.og" onsubmit="return validateForm3(true)" method="post">
         </c:if>
         <c:if test='${isAdmin == null}'>
-        <form name="actionForm4" action="taskInsertSave.og" onsubmit="return validateForm3(false)">
+        <form accept-charset="ISO-8859-15" name="actionForm4" action="taskInsertSave.og" onsubmit="return validateForm3(false)" method="post">
             </c:if>
 
             <table class="table">
@@ -99,7 +99,7 @@
     function validateForm3(admin) {
         var admin = admin;
         var result = true;
-        var letterNumber = /^[0-9a-zA-Z. ]+$/;
+        var letterNumber = /^[0-9a-zA-Z ęśążółćżń.,. ]+$/;
         var numbers = /^[0-9]+$/;
         var numbersD = /^[0-9.]+$/;
         var name = document.forms["actionForm4"]["name"].value;

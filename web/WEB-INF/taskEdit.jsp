@@ -5,22 +5,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
 <div>
-    <h1 style="text-align:center;">Task list</h1>
+    <h1 style="text-align:center;">Task Manager</h1>
     <h4 style="text-align:center;">Hello ${currentSessionUser.username} , Project: ${projectName}, Edit task: ${task.name}</h4>
 </div>
 <div>
     <jsp:include page="../logout.jsp"/>
 </div>
 <div>
-    <input class="btn" type="submit" value="Go back to TasList" ONCLICK="window.location.href='/taskList.og'"/>
+    <input class="btn" type="submit" value="Go back to Task Manager" ONCLICK="window.location.href='/taskList.og'"/>
 </div>
 <div style="width: 50%; margin: 0 auto;">
 <c:if test='${isAdmin != null}'>
 
-<form name="actionForm4" action="taskEditSave.og" onsubmit="return validateForm3(true)">
+<form accept-charset="ISO-8859-15" name="actionForm4" action="taskEditSave.og" onsubmit="return validateForm3(true)" method="post">
     </c:if>
     <c:if test='${isAdmin == null}'>
-    <form name="actionForm4" action="taskEditSave.og" onsubmit="return validateForm3(false)">
+    <form accept-charset="ISO-8859-15" name="actionForm4" action="taskEditSave.og" onsubmit="return validateForm3(false)" method="post">
         </c:if>
         <table class="table">
             <tr>
@@ -80,7 +80,7 @@
 <script>
     function validateForm3(admin) {
         var result = true;
-        var letterNumber = /^[0-9a-zA-Z. ]+$/;
+        var letterNumber = /^[0-9a-zA-Z ęśążółćżń.,. ]+$/;
         var numbers = /^[0-9]+$/;
         var numbersD = /^[0-9.]+$/;
         var name = document.forms["actionForm4"]["name"].value;

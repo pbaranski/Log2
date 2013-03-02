@@ -1,5 +1,7 @@
 package com.login;
 
+import db.DBConnect;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +23,7 @@ public class Logout extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("currentSessionUser", null);
         session.invalidate();
+        DBConnect.discoconect();
         try {
             response.sendRedirect("/");
         } catch (IOException e) {

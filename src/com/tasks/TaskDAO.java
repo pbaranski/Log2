@@ -115,7 +115,7 @@ public class TaskDAO {
 
     public void updateTask(Task task) {
         try {
-            PreparedStatement pstmt = con.prepareStatement("update task set name=?, priority=?, timeToDo=?, description=?, project_idp=?, user_idu=? where idt= ?");
+            PreparedStatement pstmt = con.prepareStatement("update task set name=?, priority=?, timeToDo=?, description=?, project_idp=?, user_idu=? where idt=?");
             pstmt.setString(1, task.getName());
             pstmt.setString(2, task.getPriority());
             pstmt.setDouble(3, task.getTimeToDo());
