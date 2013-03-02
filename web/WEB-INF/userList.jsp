@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
 <div>
-    <h1 style="text-align:center;">User list</h1>
+    <h1 style="text-align:center;">Task Manager</h1>
     <h4 style="text-align:center;">Hello ${currentSessionUser.username}</h4>
 </div>
 <div>
@@ -22,6 +22,7 @@
     </c:if>
     <c:if test='${userList != null}'>
     <div>
+        </br>
         <table class="table" >
             <tr>
                 <th>Id</th>

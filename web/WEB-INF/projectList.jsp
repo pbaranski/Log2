@@ -23,7 +23,8 @@
         </c:if>
     </div>
     <div>
-    <table class="table table-striped">
+        </br>
+        <table class="table table-striped">
         <tr>
             <th>ID</th>
             <th>Name</th>

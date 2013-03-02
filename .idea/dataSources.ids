@@ -14,15 +14,6 @@
       </library>
     </libraries>
     <schema name="" catalog="tasak" />
-    <table name="car" schema="" catalog="tasak" type="TABLE">
-      <column name="idc" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
-      <column name="make" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
-      <column name="model" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
-      <column name="regnum" sqlType="VARCHAR" length="8" precision="0" nullable="false" jdbcType="12" />
-      <column name="price" sqlType="DOUBLE" length="22" precision="0" nullable="true" jdbcType="8" />
-      <column name="color" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />
-      <primary-key name="PRIMARY" columns="idc" />
-    </table>
     <table name="task" schema="" catalog="tasak" type="TABLE">
       <column name="idt" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true" />
       <column name="name" sqlType="VARCHAR" length="50" precision="0" nullable="true" jdbcType="12" />

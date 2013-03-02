@@ -21,6 +21,7 @@
                ONCLICK="window.location.href='taskInsert.og?idp=${idp}&idt=${task.idt}'"/><br/>
     </div>
     <div>
+        </br>
         <table class="table table-striped">
             <tr>
                 <th>Project</th>

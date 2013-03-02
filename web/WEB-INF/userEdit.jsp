@@ -34,7 +34,7 @@
             <tr>
                 <td>Old password:</td>
                 <td><input type="text" name="oldPassword"><br/></td>
-                <td id="errorPassword" style="display:none; color: #FF00FF">wrong input format</td>
+                <td id="errorOldPassword" style="display:none; color: #FF00FF">wrong input format</td>
                 <td id="errorPassword2" style="color: red">${errorMsg}</td>
             </tr>
             <tr>
@@ -46,7 +46,7 @@
                 <td>Repeat new password:</td>
                 <td><input type="text" name="newPassword2"><br/></td>
                 <td id="errorNewPassword2" style="display:none; color: #FF00FF">wrong input format</td>
-                <td id="errorNewPassword3" style="display:none; color: #FF00FF">pasword doesn't match</td>
+                <td id="errorNewPassword3" style="display:none; color: #FF00FF">password doesn't match</td>
             </tr>
 
 
@@ -54,7 +54,7 @@
                 <tr>
                     <td>Username:</td>
                     <td><input type="text" name="uname" value="${user.username}"><br/></td>
-                    <td id="errorDesc" style="display:none; color: #FF00FF">wrong input format</td>
+                    <td id="errorUname" style="display:none; color: #FF00FF">wrong input format</td>
                 </tr>
                 <tr>
                     <td>Is Admin:</td>
@@ -118,8 +118,8 @@
             document.getElementById('errorOldPassword').style.display = "block";
             result = false;
         } else document.getElementById('errorOldPassword').style.display = "none";
-        if (oldPassword === newPassword) {
-
+        if (newPassword === newPassword2) {
+            document.getElementById('errorNewPassword3').style.display = "none";
             if (!newPassword.match(letterNumber) || newPassword.length > 120) {
                 document.getElementById('errorNewPassword').style.display = "block";
                 result = false;
@@ -129,6 +129,8 @@
                 result = false;
             } else document.getElementById('errorNewPassword2').style.display = "none";
         } else {
+            document.getElementById('errorNewPassword').style.display = "none";
+            document.getElementById('errorNewPassword2').style.display = "none";
             document.getElementById('errorNewPassword3').style.display = "block";
             result = false;
         }
